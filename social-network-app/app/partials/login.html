@@ -1,33 +1,56 @@
 <div class="jumbotron col-md-12 vcenter">
   <h1>Social Network</h1>
 </div>
+<!-- alert -->
+<div class="col-md-8 col-md-offset-2 alert alert-{{alert.type}}" role="alert" ng-show="alertShow">
+  <strong>{{alert.status}}</strong>{{alert.message}}</div>
+<!-- alert end -->
+
 <div class="row">
+  <!-- login -->
   <div class="col-md-3 col-md-offset-3" ng-controller="loginController">
     <form class="form-signin">
-      <h2 class="form-signin-heading">Sign in</h2>Username:
-      <input type="text" id="inputUsername" class="form-control" placeholder="username..." required autofocus>Password:
-      <input type="password" id="inputPassword" class="form-control" placeholder="password..." required>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      <h2 class="form-signin-heading">Sign in</h2>
+      <b>Username:</b>
+      <input type="text" id="inputUsername" class="form-control" placeholder="username..." required autofocus ng-model="user.username">
+      <b>Password:</b>
+      <input type="password" id="inputPassword" class="form-control" placeholder="password..." required ng-model="user.password">
+      <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="login(user)">Sign in</button>
     </form>
   </div>
+  <!-- login end -->
+  <!-- register -->
   <div class="col-md-3" ng-controller="registerController">
     <form class="form-signin">
-      <h2 class="form-signin-heading">Register</h2>Username:
-      <input type="text" id="inputUsername" class="form-control" placeholder="username..." required autofocus>Password:
-      <input type="password" id="inputPassword" class="form-control" placeholder="password..." required>Confirm Password:
+      <h2 class="form-signin-heading">Register</h2>
+      <b>Username:</b>
+      <input type="text" id="inputUsername" class="form-control" placeholder="username..." required autofocus ng-model="user.username">
+      <b>Password:</b>
+      <input type="password" id="inputPassword" class="form-control" placeholder="password..." required ng-model="user.password">
+      <b>Confirm Password:</b>
       <input type="password" id="inputConfirmPassword" class="form-control" placeholder="confirm password..."
-      required>Name:
-      <input type="text" id="name" class="form-control" placeholder="name..." required autofocus>Email:
-      <input type="text" id="email" class="form-control" placeholder="email..." required autofocus>Gender:
+      required ng-model="user.confirmPassword">
+      <b>Name:</b>
+      <input type="text" id="name" class="form-control" placeholder="name..." required autofocus ng-model="user.name">
+      <b>Email:</b>
+      <input type="email" id="email" class="form-control" placeholder="email..." required autofocus ng-model="user.email">
+      <b>Gender:</b>
       <div class="radio">
         <label>
-          <input type="radio" name="gender">Male</label>
+          <input type="radio" name="gender" ng-model="user.gender" checked value="Male">
+          <b>Male</b>
+        </label>
         <label>
-          <input type="radio" name="gender">Female</label>
+          <input type="radio" name="gender" ng-model="user.gender" value="Female">
+          <b>Female</b>
+        </label>
         <label>
-          <input type="radio" name="gender">Other</label>
+          <input type="radio" name="gender" ng-model="user.gender" value="Other">
+          <b>Other</b>
+        </label>
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="register(user)">Register</button>
     </form>
   </div>
+  <!-- register end -->
 </div>
