@@ -1,28 +1,24 @@
 "use strict";
 
-app.factory('userData', function ($resource, baseServiceUrl, authentication) {
+app.factory('userData', ['$resource', 'authentication', 'baseServiceUrl' ,function ($resource, authentication, baseServiceUrl) {
 
 	function registerUser(user) {
 
 		return $resource(baseServiceUrl + 'users/Register')
 			.save(user)
-			.success(function (data) {
+			.$promise
+			.then(function (data) {
 				authentication.saveUser(data);
-			})
-			.error(function (data, error) {
-
 		});
 	}
 
 	function loginUser(user) {
 
-		var resource = $resource(baseServiceUrl + 'users/Login')
-			.save(user)
-			.success(function (data) {
+		var resource = $resource(baseServiceUrl + 'users/Login').save(user);
+		
+		resource.$promise
+			.then(function (data) {
 				authentication.saveUser(data);
-			})
-			.error(function (data, error) {
-
 		});
 
 		return resource;
@@ -32,14 +28,10 @@ app.factory('userData', function ($resource, baseServiceUrl, authentication) {
 
 		return $resource(baseServiceUrl + 'users/Logout')
 			.save(user)
-			.success(function (data) {
-				authentication.removeUser(data);
-			})
-			.error(function (data, error) {
-
+			.$promise
+			.then(function (data) {
+				authentication.removeUser(user);
 		});
-			
-
 	}
 
 	return {
@@ -47,4 +39,4 @@ app.factory('userData', function ($resource, baseServiceUrl, authentication) {
 		login: loginUser,
 		logout: logoutUser
 	};
-});
+}]);
