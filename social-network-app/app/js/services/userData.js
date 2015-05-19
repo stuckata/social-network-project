@@ -1,24 +1,20 @@
 "use strict";
 
-app.factory('userData', ['$resource', 'authentication', 'baseServiceUrl' ,function ($resource, authentication, baseServiceUrl) {
+app.factory('userData', ['$resource', 'baseServiceUrl', 'authentication', function ($resource, baseServiceUrl, authentication) {
 
 	function registerUser(user) {
 
-		return $resource(baseServiceUrl + 'users/Register')
-			.save(user)
-			.$promise
-			.then(function (data) {
-				authentication.saveUser(data);
+		return $resource(baseServiceUrl + 'users/Register').save(user).$promise.then(function (data) {
+			authentication.saveUser(data);
 		});
 	}
 
 	function loginUser(user) {
 
 		var resource = $resource(baseServiceUrl + 'users/Login').save(user);
-		
-		resource.$promise
-			.then(function (data) {
-				authentication.saveUser(data);
+
+		resource.$promise.then(function (data) {
+			authentication.saveUser(data);
 		});
 
 		return resource;
@@ -30,7 +26,7 @@ app.factory('userData', ['$resource', 'authentication', 'baseServiceUrl' ,functi
 			.save(user)
 			.$promise
 			.then(function (data) {
-				authentication.removeUser(user);
+			authentication.removeUser();
 		});
 	}
 
