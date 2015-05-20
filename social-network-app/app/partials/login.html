@@ -2,50 +2,60 @@
   <h1>Social Network</h1>
 </div>
 <div class="row">
-  <!-- login -->
-  <div class="col-md-3 col-md-offset-3" ng-controller="LoginController">
-    <form class="form-signin">
-      <h2 class="form-signin-heading">Sign in</h2>
-      <b>Username:</b>
-      <input type="text" id="inputUsername" class="form-control" placeholder="username..." required autofocus ng-model="user.username">
-      <b>Password:</b>
-      <input type="password" id="inputPassword" class="form-control" placeholder="password..." required ng-model="user.password">
-      <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="login(user)">Sign in</button>
-    </form>
-  </div>
-  <!-- login end -->
-  <!-- register -->
-  <div class="col-md-3" ng-controller="RegisterController">
-    <form class="form-signin">
-      <h2 class="form-signin-heading">Register</h2>
-      <b>Username:</b>
-      <input type="text" id="inputUsername" class="form-control" placeholder="username..." required autofocus ng-model="user.username">
-      <b>Password:</b>
-      <input type="password" id="inputPassword" class="form-control" placeholder="password..." required ng-model="user.password">
-      <b>Confirm Password:</b>
-      <input type="password" id="inputConfirmPassword" class="form-control" placeholder="confirm password..."
-      required ng-model="user.confirmPassword">
-      <b>Name:</b>
-      <input type="text" id="name" class="form-control" placeholder="name..." required autofocus ng-model="user.name">
-      <b>Email:</b>
-      <input type="email" id="email" class="form-control" placeholder="email..." required autofocus ng-model="user.email">
-      <b>Gender:</b>
-      <div class="radio">
-        <label>
-          <input type="radio" name="gender" ng-model="user.gender" value="1" checked>
-          <b>Male</b>
-        </label>
-        <label>
-          <input type="radio" name="gender" ng-model="user.gender" value="2">
-          <b>Female</b>
-        </label>
-        <label>
-          <input type="radio" name="gender" ng-model="user.gender" value="0">
-          <b>Other</b>
-        </label>
+  <div ng-controller="LoginController">
+    <div class="col-md-6 col-md-offset-3 alert alert-danger" role="alert" ng-show="loginFailedAlert">
+      <strong>Login Failed!</strong> {{loginError}} </div>
+    <div ng-controller="RegisterController">
+      <div class="col-md-6 col-md-offset-3 alert alert-danger" role="alert" ng-show="RegisterFailedAlert">
+        <strong>Registration Failed</strong>
+        <span ng-repeat="err in registerError">{{err}}</span>
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="register(user)">Register</button>
-    </form>
+      <!-- login -->
+      <div class="col-md-3 col-md-offset-3">
+        <form class="form-signin">
+          <h2 class="form-signin-heading">Sign in</h2>
+          <b>Username:</b>
+          <input type="text" id="inputUsername" class="form-control" placeholder="username..." required autofocus ng-model="user.loginUsername">
+          <b>Password:</b>
+          <input type="password" id="inputPassword" class="form-control" placeholder="password..." required ng-model="user.loginPassword">
+          <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="login(user)">Sign in</button>
+        </form>
+      </div>
+      <!-- login end -->
+      <!-- register -->
+      <div class="col-md-3">
+        <form class="form-signin">
+          <h2 class="form-signin-heading">Register</h2>
+          <b>Username:</b>
+          <input type="text" id="inputUsername" class="form-control" placeholder="username..." required autofocus ng-model="user.username">
+          <b>Password:</b>
+          <input type="password" id="inputPassword" class="form-control" placeholder="password..." required ng-model="user.password">
+          <b>Confirm Password:</b>
+          <input type="password" id="inputConfirmPassword" class="form-control" placeholder="confirm password..."
+          required ng-model="user.confirmPassword">
+          <b>Name:</b>
+          <input type="text" id="name" class="form-control" placeholder="name..." required autofocus ng-model="user.name">
+          <b>Email:</b>
+          <input type="text" id="email" class="form-control" placeholder="email..." required autofocus ng-model="user.email">
+          <b>Gender:</b>
+          <div class="radio">
+            <label>
+              <input type="radio" name="gender" ng-model="user.gender" value="1" checked>
+              <b>Male</b>
+            </label>
+            <label>
+              <input type="radio" name="gender" ng-model="user.gender" value="2">
+              <b>Female</b>
+            </label>
+            <label>
+              <input type="radio" name="gender" ng-model="user.gender" value="0">
+              <b>Other</b>
+            </label>
+          </div>
+          <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="register(user)">Register</button>
+        </form>
+      </div>
+      <!-- register end -->
+    </div>
   </div>
-  <!-- register end -->
 </div>

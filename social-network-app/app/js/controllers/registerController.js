@@ -1,6 +1,7 @@
 "use strict";
 
-app.controller('RegisterController', ['$scope', '$location', 'userData', function ($scope, $location, userData) {
+app.controller('RegisterController', ['$scope', '$location', '$timeout', 'userData', 
+	function ($scope, $location, $timeout, userData) {
 	
 	$scope.register = function (user) {
 		
@@ -8,7 +9,11 @@ app.controller('RegisterController', ['$scope', '$location', 'userData', functio
 			.$promise
 			.then(function (data) {
 				$location.path('/home');
+			},
+			function (error) {
+				
+				$scope.registerError = error.modelState.model;
+				$scope.RegisterFailedAlert = !$scope.RegisterFailedAlert;
 			});
 	};
-	
 }]);

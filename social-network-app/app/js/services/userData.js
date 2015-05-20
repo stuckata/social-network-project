@@ -4,8 +4,11 @@ app.factory('userData', ['$resource', 'baseServiceUrl', 'authentication', functi
 
 	function registerUser(user) {
 
-		return $resource(baseServiceUrl + 'users/Register').save(user).$promise.then(function (data) {
-			authentication.saveUser(data);
+		return $resource(baseServiceUrl + 'users/Register')
+				.save(user)
+				.$promise
+				.then(function (data) {
+					authentication.saveUser(data);
 		});
 	}
 
@@ -26,7 +29,7 @@ app.factory('userData', ['$resource', 'baseServiceUrl', 'authentication', functi
 			.save(user)
 			.$promise
 			.then(function (data) {
-			authentication.removeUser();
+				authentication.removeUser();
 		});
 	}
 
