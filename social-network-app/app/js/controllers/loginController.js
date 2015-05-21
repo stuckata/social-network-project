@@ -1,19 +1,20 @@
 "use strict";
 
-app.controller('LoginController', ['$scope', '$location', '$timeout', 'userData', 
-	function ($scope, $location, $timeout, userData) {
+app.controller('LoginController', function ($scope, $rootScope, $location, authenticationService, notificationService) {
 
-	$scope.login = function (user) {
-		
-		userData.login(user)
-			.$promise
-			.then(function (data) {
-				$location.path('/home');
-			},
-			function (error) {
-				
-				$scope.loginError = error.data.error_description;
-				$scope.loginFailedAlert = !$scope.loginFailedAlert;
-			});
-	};
-}]);
+	$scope.login = function(userData) {
+        authenticationService.login(userData,
+            function success() {
+                notificationService.showInfo("Login successful");
+                $location.path("/home");
+            },
+            function error(err) {
+                notificationService.showError("Login failed", err);
+            }
+        );
+    };
+    
+    $scope.registerView = function() {
+        $location.path("/register");
+    };
+});

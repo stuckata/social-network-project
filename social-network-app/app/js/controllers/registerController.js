@@ -1,19 +1,15 @@
 "use strict";
 
-app.controller('RegisterController', ['$scope', '$location', '$timeout', 'userData', 
-	function ($scope, $location, $timeout, userData) {
+app.controller('RegisterController', function ($scope, $location, authenticationService, notificationService) {
 	
-	$scope.register = function (user) {
-		
-		userData.register(user)
-			.$promise
-			.then(function (data) {
-				$location.path('/home');
-			},
-			function (error) {
-				
-				$scope.registerError = error.modelState.model;
-				$scope.RegisterFailedAlert = !$scope.RegisterFailedAlert;
-			});
-	};
-}]);
+	$scope.register = function(userData) {
+		authenticationService.register(userData,
+            function success() {
+                notificationService.showInfo("User registered successfully");
+                $location.path("/home");
+            },
+			function error(err) {
+                notificationService.showError("User registration failed", err);
+            });        
+    };
+});
