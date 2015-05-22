@@ -12,4 +12,8 @@ app.controller('RegisterController', function ($scope, $location, authentication
                 notificationService.showError("User registration failed", err);
             });        
     };
+    
+    $scope.loginView = function() {
+        $location.path("/");
+    };
 });

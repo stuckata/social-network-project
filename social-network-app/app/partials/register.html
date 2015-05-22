@@ -10,7 +10,8 @@
   <form class="form-signin">
     <h2 class="form-signin-heading">Register</h2>
     <b>Username:</b>
-    <input type="text" id="inputUsernameRegister" class="form-control" placeholder="username..." required autofocus ng-model="user.username">
+    <input type="text" id="inputUsernameRegister" class="form-control" placeholder="username..." required autofocus
+    ng-model="user.username">
     <b>Password:</b>
     <input type="password" id="inputPasswordRegister" class="form-control" placeholder="password..." required ng-model="user.password">
     <b>Confirm Password:</b>
@@ -36,6 +37,8 @@
       </label>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="button" ng-click="register(user)">Register</button>
+    <h2 class="form-signin-heading">Or Login here:</h2>
+    <button class="btn btn-lg btn-primary btn-block" type="button" ng-click="loginView()">Login</button>
   </form>
 </div>
 <!-- register end -->
