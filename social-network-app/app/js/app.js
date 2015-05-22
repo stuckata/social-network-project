@@ -17,5 +17,9 @@ app.config(function ($routeProvider) {
 		.when('/home', {
 			templateUrl: 'partials/home.html',
 			controller: 'HomeController'
+		})
+		.when('/friends', {
+			templateUrl: 'partials/home.html',
+			controller: 'FriendsController'
 		});
 });
