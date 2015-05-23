@@ -64,10 +64,38 @@ app.factory('userService', function ($http, baseServiceUrl, authenticationServic
 			.error(error);
 	}
 
+	function fetchFriends(userData, success, error) {
+		var request = {
+			method: 'GET',
+			url: baseServiceUrl + 'users/' + userData.username + "/friends",
+			headers: authenticationService.getAuthorizationHeaders(),
+        };
+        $http(request)
+			.success(function (data) {
+			success(data);
+		})
+			.error(error);
+	}
+
+	function fetchWall(userData, startPostId, pagesize, success, error) {
+		var request = {
+			method: 'GET',
+			url: baseServiceUrl + 'users/' + userData.username + "/wall?StartPostId=" + startPostId + "&PageSize=" + pagesize,
+			headers: authenticationService.getAuthorizationHeaders(),
+        };
+        $http(request)
+			.success(function (data) {
+			success(data);
+		})
+			.error(error);
+	}
+
 	return {
 		getMyInfo: getMyInfo,
 		getUserInfo: getUserInfo,
 		search: search,
-		preview: preview
+		preview: preview,
+		fetchFriends: fetchFriends,
+		fetchWall: fetchWall
 	};
 });
