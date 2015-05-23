@@ -1,12 +1,11 @@
 "use strict";
 
-app.controller('HomeController', function ($scope, $location, authenticationService, notificationService, userService, postsService) {
+app.controller('HomeController', function ($scope, $location, authenticationService, notificationService, userService, postsService, meService) {
 
 	if (!authenticationService.isLoggedIn()) {
 		$location.path("/");
 		notificationService.showInfo("You must login to proceed!");
 	}
-
 
 	userService.getMyInfo(
 		function success(data) {
@@ -36,7 +35,9 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 		}
 		);
 
-	userService.fetchMyWall("", 10,
+	// тук трябва да се вика me/feed обаче не връща верен резултат!!!
+	var currentUser = JSON.parse(sessionStorage['currentUserInfo']);
+	userService.fetchWall(currentUser, "", 10,
 		function success(data) {
 			console.log(data);
 			$scope.wall = data;
@@ -56,11 +57,23 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 		post.postContent = message;
 
 		postsService.publishPost(post, function success(data) {
+			$scope.wall.unshift(data);
 			console.log(data);
 		},
 			function error(error) {
 				console.log(error);
 			});
 	};
+
+	meService.fetchRequests(
+		function success(data) {
+			$scope.requests = data;
+			console.log(data);
+		},
+		function error(error) {
+			console.log(error);
+		}
+		);
+
 
 });
