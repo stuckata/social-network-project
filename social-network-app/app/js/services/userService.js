@@ -64,10 +64,24 @@ app.factory('userService', function ($http, baseServiceUrl, authenticationServic
 			.error(error);
 	}
 
-	function fetchFriends(userData, success, error) {
+	function fetchFriends(username, success, error) {
 		var request = {
 			method: 'GET',
-			url: baseServiceUrl + 'users/' + userData.username + "/friends",
+			url: baseServiceUrl + 'users/' + username + "/friends",
+			headers: authenticationService.getAuthorizationHeaders(),
+        };
+        $http(request)
+			.success(function (data) {
+			success(data);
+		})
+			.error(error);
+	}
+
+
+	function fetchMyFriends(success, error) {
+		var request = {
+			method: 'GET',
+			url: baseServiceUrl + 'me/friends',
 			headers: authenticationService.getAuthorizationHeaders(),
         };
         $http(request)
@@ -85,6 +99,21 @@ app.factory('userService', function ($http, baseServiceUrl, authenticationServic
         };
         $http(request)
 			.success(function (data) {
+
+			success(data);
+		})
+			.error(error);
+	}
+	
+		function fetchMyWall(startPostId, pagesize, success, error) {
+		var request = {
+			method: 'GET',
+			url: baseServiceUrl + 'me/feed?StartPostId=' + startPostId + '&PageSize=' + pagesize,
+			headers: authenticationService.getAuthorizationHeaders(),
+        };
+        $http(request)
+			.success(function (data) {
+
 			success(data);
 		})
 			.error(error);
@@ -96,6 +125,8 @@ app.factory('userService', function ($http, baseServiceUrl, authenticationServic
 		search: search,
 		preview: preview,
 		fetchFriends: fetchFriends,
-		fetchWall: fetchWall
+		fetchWall: fetchWall,
+		fetchMyFriends: fetchMyFriends,
+		fetchMyWall: fetchMyWall
 	};
 });

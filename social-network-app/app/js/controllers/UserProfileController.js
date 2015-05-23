@@ -14,4 +14,14 @@ app.controller('UserProfileController', function ($scope, $location, authenticat
 			console.log(error);
 		}
 		);
+
+	userService.fetchFriends($scope.selectedUser.username,
+		function success(data) {
+			console.log(data);
+			$scope.friends = data;
+		},
+		function error(error) {
+			console.log(error);
+		}
+		);
 });

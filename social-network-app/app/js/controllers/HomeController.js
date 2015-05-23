@@ -7,19 +7,16 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 		notificationService.showInfo("You must login to proceed!");
 	}
 
+
 	userService.getMyInfo(
 		function success(data) {
 			console.log(data);
-			$scope.currentUserInfo = JSON.parse(sessionStorage['currentUserInfo']);//TODO
+			$scope.currentUserInfo = JSON.parse(sessionStorage['currentUserInfo']);
 		},
 		function error(error) {
 			console.log(error);
 		}
 		);
-
-	$scope.getFriends = function () {
-		$location.path("/friends");
-	};
 
 	$scope.search = function (searchTerm) {
 		userService.search(searchTerm, function success(data) {
@@ -30,16 +27,27 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 			});
 	};
 
-
-	$scope.openUserProfile = function (selectedUser) {
-		userService.preview(selectedUser, function success(data) {
-			sessionStorage['selectedUser'] = JSON.stringify(data);
-			$location.path("/user-profile");
+	userService.fetchMyFriends(
+		function success(data) {
+			$scope.friends = data;
 		},
-			function error(error) {
-				console.log(error);
-			});
-	};
+		function error(error) {
+			console.log(error);
+		}
+		);
 
+	userService.fetchMyWall("", 5,
+		function success(data) {
+			console.log(data);
+			$scope.wall = data;
+		},
+		function error(error) {
+			console.log(error);
+		}
+		);
+
+	$scope.getFriends = function () {
+		$location.path("/friends");
+	};
 
 });
