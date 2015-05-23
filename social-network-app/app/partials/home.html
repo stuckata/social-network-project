@@ -40,8 +40,9 @@
                     </span>
                 </div>
                 <ul class="dropdown-menu" role="menu">
-                    <li ng-repeat="user in searchResults">
-                        <a role="menuitem">{{user.username}} </a>
+                    <li ng-repeat="user in searchResults" ng-click="openUserProfile(user)">
+                        <a><img data-src="holder.js/200x200" class="img-thumbnail" alt="pic" ng-src="{{user.profileImageData}}"
+                data-holder-rendered="true" style="width: 50px; height: 50px;" role="menuitem">{{user.name}}</a>
                     </li>
                 </ul>
             </div>
@@ -56,7 +57,7 @@
     <div class="col-md-6 col-md-offset-1">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <a><img data-src="holder.js/200x200" class="img-thumbnail" alt="100x100" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9Ijc0LjA1NDY4NzUiIHk9IjEwMCIgc3R5bGU9ImZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0O2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjIwMHgyMDA8L3RleHQ+PC9nPjwvc3ZnPg=="
+                <a><img data-src="holder.js/200x200" class="img-thumbnail" alt="100x100" src="/img/download.svg"
                 data-holder-rendered="true" style="width: 50px; height: 50px;"></a>
                 <span>
                     <b>User Username</b>

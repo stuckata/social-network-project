@@ -20,20 +20,26 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 	$scope.getFriends = function () {
 		$location.path("/friends");
 	};
-	
+
 	$scope.search = function (searchTerm) {
 		userService.search(searchTerm, function success(data) {
 			$scope.searchResults = data;
 		},
-		function error(error) {
-			console.log(error);
-		});
-	}
-	
-		  // This event is sent by RightSideBarController when the current category is changed
-        $scope.$on("categorySelectionChanged", function(event, selectedCategoryId) {
-            $scope.adsParams.categoryId = selectedCategoryId;
-            $scope.adsParams.startPage = 1;
-            $scope.reloadAds();
-        });
+			function error(error) {
+				console.log(error);
+			});
+	};
+
+
+	$scope.openUserProfile = function (selectedUser) {
+		userService.preview(selectedUser, function success(data) {
+			sessionStorage['selectedUser'] = JSON.stringify(data);
+			$location.path("/user-profile");
+		},
+			function error(error) {
+				console.log(error);
+			});
+	};
+
+
 });

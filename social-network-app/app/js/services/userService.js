@@ -37,7 +37,7 @@ app.factory('userService', function ($http, baseServiceUrl, authenticationServic
 	//Връща данни за потребител по потребителско име
 	//TODO да се подава unername: friendUsername, а не текущия
 	function search(searchTerm, success, error) {
-					console.log(searchTerm);
+		console.log(searchTerm);
 		var request = {
 			method: 'GET',
 			url: baseServiceUrl + 'users/search?searchTerm=' + searchTerm,
@@ -51,9 +51,23 @@ app.factory('userService', function ($http, baseServiceUrl, authenticationServic
 			.error(error);
 	}
 
+	function preview(userData, success, error) {
+		var request = {
+			method: 'GET',
+			url: baseServiceUrl + 'users/' + userData.username + "/preview",
+			headers: authenticationService.getAuthorizationHeaders(),
+        };
+        $http(request)
+			.success(function (data) {
+			success(data);
+		})
+			.error(error);
+	}
+
 	return {
 		getMyInfo: getMyInfo,
 		getUserInfo: getUserInfo,
-		search: search
+		search: search,
+		preview: preview
 	};
 });

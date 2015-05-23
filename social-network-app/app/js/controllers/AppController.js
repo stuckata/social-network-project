@@ -9,4 +9,5 @@ app.controller('AppController', function($scope, $location, authenticationServic
             notificationService.showInfo("Logout successful");
             $location.path('/');
         };
+        
 });
