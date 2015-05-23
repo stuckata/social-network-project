@@ -3,8 +3,11 @@
 app.controller('RegisterController', function ($scope, $location, authenticationService, notificationService) {
 	
 	$scope.register = function(userData) {
+        if (authenticationService.isLoggedIn()) {
+            authenticationService.logout();
+	    }
 		authenticationService.register(userData,
-            function success() {
+            function success() {             
                 notificationService.showInfo("User registered successfully");
                 $location.path("/home");
             },

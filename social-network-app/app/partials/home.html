@@ -4,7 +4,7 @@
             <img data-src="holder.js/200x200" class="img-thumbnail" alt="100x100" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9Ijc0LjA1NDY4NzUiIHk9IjEwMCIgc3R5bGU9ImZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0O2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjIwMHgyMDA8L3RleHQ+PC9nPjwvc3ZnPg=="
             data-holder-rendered="true" style="width: 100px; height: 100px;">
             <span>
-                <b>{{userInfo.name}}</b>
+                <b>{{currentUserInfo.name}}</b>
             </span>
         </div>
         <div class="col-md-5" id="homeButtons">
@@ -31,13 +31,14 @@
         </div>
         <div class="col-md-3" id="friendsSearch">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term" ng-model="searchTerm" ng-keyup="search(searchTerm)">
                 <div class="input-group-btn">
-                    <button class="btn btn-primary" type="submit">
+                    <button class="btn btn-primary" ng-click="search(searchTerm)">
                         <i class="glyphicon glyphicon-search"></i>
                     </button>
                 </div>
             </div>
+                        <select ng-model="selected[selectedUser]" ng-options="user as user.name for user in searchResults track by user" multiple></select>
         </div>
     </div>
 </div>
@@ -80,7 +81,8 @@
     <div class="col-md-3 col-md-offset-1">
         <div class="list-group">
             <div class="list-group-item active">
-              <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Friends</h4>
+                <h4 class="list-group-item-heading">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>Friends</h4>
             </div>
             <a class="list-group-item">
               <img data-src="holder.js/200x200" class="img-thumbnail" alt="100x100" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9Ijc0LjA1NDY4NzUiIHk9IjEwMCIgc3R5bGU9ImZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0O2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjIwMHgyMDA8L3RleHQ+PC9nPjwvc3ZnPg=="

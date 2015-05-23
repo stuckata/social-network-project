@@ -7,18 +7,33 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 		notificationService.showInfo("You must login to proceed!");
 	}
 
+	userService.getMyInfo(
+		function success(data) {
+			console.log(data);
+			$scope.currentUserInfo = JSON.parse(sessionStorage['currentUserInfo']);//TODO
+		},
+		function error(error) {
+			console.log(error);
+		}
+		);
 
-	userService.getUserInfo(
-			function success(data) {
-				$scope.userInfo = data;
-			},
-			function error(error) {
-				console.log(error);
-			}
-	);
-
-	console.log($scope.userInfo.name);
 	$scope.getFriends = function () {
 		$location.path("/friends");
 	};
+	
+	$scope.search = function (searchTerm) {
+		userService.search(searchTerm, function success(data) {
+			$scope.searchResults = data;
+		},
+		function error(error) {
+			console.log(error);
+		});
+	}
+	
+		  // This event is sent by RightSideBarController when the current category is changed
+        $scope.$on("categorySelectionChanged", function(event, selectedCategoryId) {
+            $scope.adsParams.categoryId = selectedCategoryId;
+            $scope.adsParams.startPage = 1;
+            $scope.reloadAds();
+        });
 });
