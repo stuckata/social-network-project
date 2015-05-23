@@ -11,6 +11,7 @@ app.controller('UserProfileController', function ($scope, $location, authenticat
 			$scope.wall = data;
 		},
 		function error(error) {
+			notificationService.showError("Problem while fetching user's wall posts", error);
 			console.log(error);
 		}
 		);
@@ -21,6 +22,7 @@ app.controller('UserProfileController', function ($scope, $location, authenticat
 			$scope.friends = data;
 		},
 		function error(error) {
+			notificationService.showError("Problem while fetching user's friends", error);
 			console.log(error);
 		}
 		);

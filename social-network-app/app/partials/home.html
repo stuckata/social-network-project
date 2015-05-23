@@ -58,25 +58,25 @@
     <div class="col-md-6 col-md-offset-1">
         <!-- Show requests -->
         <div class="panel panel-danger" ng-show="showNewRequests" ng-repeat="request in requests">
-             <div class="panel-heading">
-                    <a><img data-src="holder.js/200x200" class="img-thumbnail" alt="100x100" ng-src="{{request.user.profileImageData}}"
+            <div class="panel-heading">
+                <a><img data-src="holder.js/200x200" class="img-thumbnail" alt="100x100" ng-src="{{request.user.profileImageData}}"
                 data-holder-rendered="true" style="width: 50px; height: 50px;"></a>
-                    <span>
-                        <b>{{request.user.name}}</b>
-                    </span>
+                <span>
+                    <b>{{request.user.name}}</b>
+                </span>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-6 col-md-offset-9">
+                    <button type="button" class="btn btn-xs btn-primary" ng-click="approveRequest(request.id)">
+                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                        <span class="glyphicon-class">Accept</span>
+                    </button>
+                    <button type="button" class="btn btn-xs btn-danger" ng-click="rejectRequest(request.id)">
+                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                        <span class="glyphicon-class">Reject</span>
+                    </button>
                 </div>
-                <div class="panel-body">
-                    <div class="col-md-6 col-md-offset-9">
-                        <button type="button" class="btn btn-xs btn-primary">
-                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                            <span class="glyphicon-class">Accept</span>
-                        </button>
-                        <button type="button" class="btn btn-xs btn-danger" >
-                            <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-                            <span class="glyphicon-class">Reject</span>
-                        </button>
-                    </div>
-                </div>
+            </div>
         </div>
         <!-- Show requests -->
         <!-- new post --->

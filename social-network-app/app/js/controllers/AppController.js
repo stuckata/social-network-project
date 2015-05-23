@@ -16,6 +16,7 @@ app.controller('AppController', function ($scope, $location, authenticationServi
 			$location.path("/user-profile");
 		},
 			function error(error) {
+				 notificationService.showError("Navigation to selected profile failed", error);
 				console.log(error);
 			});
 	};

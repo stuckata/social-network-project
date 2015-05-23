@@ -1,6 +1,6 @@
 "use strict";
 
-app.controller('HomeController', function ($scope, $location, authenticationService, notificationService, userService, postsService, meService) {
+app.controller('HomeController', function ($scope, $location, authenticationService, notificationService, userService, postsService, profileService) {
 
 	if (!authenticationService.isLoggedIn()) {
 		$location.path("/");
@@ -13,6 +13,7 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 			$scope.currentUserInfo = JSON.parse(sessionStorage['currentUserInfo']);
 		},
 		function error(error) {
+			 notificationService.showError("Problem while fetching current user data", error);
 			console.log(error);
 		}
 		);
@@ -22,6 +23,7 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 			$scope.searchResults = data;
 		},
 			function error(error) {
+				notificationService.showError("Problem while fetching searched data", error);
 				console.log(error);
 			});
 	};
@@ -31,6 +33,7 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 			$scope.friends = data;
 		},
 		function error(error) {
+			notificationService.showError("Problem while fetching current user friends", error);
 			console.log(error);
 		}
 		);
@@ -43,6 +46,7 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 			$scope.wall = data;
 		},
 		function error(error) {
+			notificationService.showError("Problem while fetching current user wall posts", error);
 			console.log(error);
 		}
 		);
@@ -61,19 +65,48 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 			console.log(data);
 		},
 			function error(error) {
+				notificationService.showError("Problem while posting the message", error);
 				console.log(error);
 			});
 	};
 
-	meService.fetchRequests(
+	profileService.fetchRequests(
 		function success(data) {
 			$scope.requests = data;
 			console.log(data);
 		},
 		function error(error) {
+			notificationService.showError("Problem while fetching friend requests", error);
 			console.log(error);
 		}
 		);
+
+	$scope.approveRequest = function (requestId) {
+		profileService.acceptRequest(requestId,
+			function success(data) {
+				$scope.friends.unshift(data);
+				notificationService.showInfo("Congrats! You have a new friend!");
+				console.log(data);
+			},
+			function error(error) {
+				notificationService.showError("Problem when approving request", error);
+				console.log(error);
+			}
+			);
+	};
+
+	$scope.rejectRequest = function (requestId) {
+		profileService.rejectRequest(requestId,
+			function success(data) {
+				console.log(data);
+				notificationService.showInfo("You lost a friend successfuly!");
+			},
+			function error(error) {
+				notificationService.showError("Problem when rejecting request", error);
+				console.log(error);
+			}
+			);
+	};
 
 
 });
