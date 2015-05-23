@@ -1,6 +1,6 @@
 "use strict";
 
-app.controller('HomeController', function ($scope, $location, authenticationService, notificationService, userService) {
+app.controller('HomeController', function ($scope, $location, authenticationService, notificationService, userService, postsService) {
 
 	if (!authenticationService.isLoggedIn()) {
 		$location.path("/");
@@ -36,7 +36,7 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 		}
 		);
 
-	userService.fetchMyWall("", 5,
+	userService.fetchMyWall("", 10,
 		function success(data) {
 			console.log(data);
 			$scope.wall = data;
@@ -48,6 +48,19 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 
 	$scope.getFriends = function () {
 		$location.path("/friends");
+	};
+
+	var post = {};
+	$scope.postMessage = function (username, message) {
+		post.username = username;
+		post.postContent = message;
+
+		postsService.publishPost(post, function success(data) {
+			console.log(data);
+		},
+			function error(error) {
+				console.log(error);
+			});
 	};
 
 });

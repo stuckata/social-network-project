@@ -104,8 +104,8 @@ app.factory('userService', function ($http, baseServiceUrl, authenticationServic
 		})
 			.error(error);
 	}
-	
-		function fetchMyWall(startPostId, pagesize, success, error) {
+
+	function fetchMyWall(startPostId, pagesize, success, error) {
 		var request = {
 			method: 'GET',
 			url: baseServiceUrl + 'me/feed?StartPostId=' + startPostId + '&PageSize=' + pagesize,
