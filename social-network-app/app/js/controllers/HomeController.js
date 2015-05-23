@@ -60,6 +60,7 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 
 		postsService.publishPost(post, function success(data) {
 			$scope.wall.unshift(data);
+			$scope.showNewPost = !$scope.showNewPost;
 		},
 			function error(error) {
 				notificationService.showError("Problem while posting the message", error);
@@ -81,6 +82,7 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 		profileService.acceptRequest(requestId,
 			function success(data) {
 				$scope.friends.unshift(data);
+				$scope.showNewRequests = !$scope.showNewRequests;
 				notificationService.showInfo("Congrats! You have a new friend!");
 			},
 			function error(error) {
@@ -93,6 +95,7 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 	$scope.rejectRequest = function (requestId) {
 		profileService.rejectRequest(requestId,
 			function success(data) {
+				$scope.showNewRequests = !$scope.showNewRequests;
 				notificationService.showInfo("You lost a friend successfuly!");
 			},
 			function error(error) {
@@ -108,6 +111,7 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 		profileService.updateUser(user,
 			function success(data) {
 				console.log(data);
+				$scope.showSettings = !$scope.showSettings;
 				sessionStorage['currentUserInfo'] = JSON.stringify(data);
 				notificationService.showInfo("User data updated successfuly!");
 			},
