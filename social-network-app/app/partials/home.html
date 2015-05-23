@@ -55,6 +55,28 @@
 </div>
 <div class="container col-md-12">
     <div class="col-md-6 col-md-offset-1">
+        <!-- password change -->
+        <div class="panel panel-primary" ng-show="showPasswordChange">
+            <div class="panel-heading">
+                <h3 class="panel-title" id="panel-title">Change Password</h3>
+            </div>
+            <div class="panel-body">
+                <b>Old Password:</b>
+                <input type="password" class="form-control" placeholder="old password..." required ng-model="userPass.OldPassword">
+                <b>New Password:</b>
+                <input type="password" class="form-control" placeholder="new password..." required ng-model="userPass.NewPassword">
+                <b>Confirm New Password:</b>
+                <input type="password" class="form-control" placeholder="confirm new password..." required ng-model="userPass.ConfirmPassword">
+                <hr>
+                <div class="col-md-offset-10" style="margin-top: 2%;">
+                    <button type="button" class="btn btn-primary" ng-click="passwordChange(userPass)">
+                        <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+                        <span class="glyphicon-class">Save</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- password change -->
         <!-- user settings -->
         <div class="panel panel-primary" ng-show="showSettings">
             <div class="panel-heading">
@@ -151,7 +173,7 @@
         </div>
         <!-- new post --->
         <!-- posts -->
-        <div ng-repeat="post in wall"  ng-hide="!showNewPost && (showNewRequests || showSettings || showPasswordChange)">
+        <div ng-repeat="post in wall" ng-hide="!showNewPost && (showNewRequests || showSettings || showPasswordChange)">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <a><img class="img-thumbnail" alt="100x100" ng-src="{{post.author.profileImageData}}"

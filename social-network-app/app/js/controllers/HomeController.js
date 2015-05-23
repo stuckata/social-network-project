@@ -122,9 +122,18 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 			);
 	};
 
-	$scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
-		console.log('aaaaaaaaaaaaaaa');
-	});
-
+	$scope.passwordChange = function (userPass) {
+		console.log(userPass);
+		profileService.changePassword(userPass,
+			function success(data) {
+				$scope.showPasswordChange = !$scope.showPasswordChange;
+				notificationService.showInfo("User password updated successfuly!");
+			},
+			function error(error) {
+				notificationService.showError("Problem when updating user password", error);
+				console.log(error);
+			}
+			);
+	};
 
 });

@@ -73,12 +73,28 @@ app.factory('profileService', function ($http, baseServiceUrl, authenticationSer
 		})
 			.error(error);
 	}
+	
+	function changePassword(userPass, success, error) {
+		var request = {
+			method: 'PUT',
+			url: baseServiceUrl + 'me/ChangePassword',
+			headers: authenticationService.getAuthorizationHeaders(),
+			data: userPass
+        };
+        $http(request)
+			.success(function (data) {
+
+			success(data);
+		})
+			.error(error);
+	}
 
 	return {
 		fetchRequests: fetchRequests,
 		acceptRequest: acceptRequest,
 		rejectRequest: rejectRequest,
 		sendRequest: sendRequest,
-		updateUser: updateUser
+		updateUser: updateUser,
+		changePassword: changePassword
 	};
 });
