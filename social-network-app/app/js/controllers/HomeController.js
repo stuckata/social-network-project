@@ -9,11 +9,10 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 
 	userService.getMyInfo(
 		function success(data) {
-			console.log(data);
 			$scope.currentUserInfo = JSON.parse(sessionStorage['currentUserInfo']);
 		},
 		function error(error) {
-			 notificationService.showError("Problem while fetching current user data", error);
+			notificationService.showError("Problem while fetching current user data", error);
 			console.log(error);
 		}
 		);
@@ -42,7 +41,6 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 	var currentUser = JSON.parse(sessionStorage['currentUserInfo']);
 	userService.fetchWall(currentUser, "", 10,
 		function success(data) {
-			console.log(data);
 			$scope.wall = data;
 		},
 		function error(error) {
@@ -62,7 +60,6 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 
 		postsService.publishPost(post, function success(data) {
 			$scope.wall.unshift(data);
-			console.log(data);
 		},
 			function error(error) {
 				notificationService.showError("Problem while posting the message", error);
@@ -73,7 +70,6 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 	profileService.fetchRequests(
 		function success(data) {
 			$scope.requests = data;
-			console.log(data);
 		},
 		function error(error) {
 			notificationService.showError("Problem while fetching friend requests", error);
@@ -86,7 +82,6 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 			function success(data) {
 				$scope.friends.unshift(data);
 				notificationService.showInfo("Congrats! You have a new friend!");
-				console.log(data);
 			},
 			function error(error) {
 				notificationService.showError("Problem when approving request", error);
@@ -98,7 +93,6 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 	$scope.rejectRequest = function (requestId) {
 		profileService.rejectRequest(requestId,
 			function success(data) {
-				console.log(data);
 				notificationService.showInfo("You lost a friend successfuly!");
 			},
 			function error(error) {
@@ -107,6 +101,26 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 			}
 			);
 	};
+
+	$scope.user = JSON.parse(sessionStorage['currentUserInfo']);
+	$scope.updateUser = function (user) {
+		console.log(user);
+		profileService.updateUser(user,
+			function success(data) {
+				console.log(data);
+				sessionStorage['currentUserInfo'] = JSON.stringify(data);
+				notificationService.showInfo("User data updated successfuly!");
+			},
+			function error(error) {
+				notificationService.showError("Problem when updating user data", error);
+				console.log(error);
+			}
+			);
+	};
+
+	$scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
+		console.log('aaaaaaaaaaaaaaa');
+	});
 
 
 });

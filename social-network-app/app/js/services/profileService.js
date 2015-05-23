@@ -44,8 +44,8 @@ app.factory('profileService', function ($http, baseServiceUrl, authenticationSer
 		})
 			.error(error);
 	}
-	
-		function sendRequest(requestedUsername, success, error) {
+
+	function sendRequest(requestedUsername, success, error) {
 		var request = {
 			method: 'POST',
 			url: baseServiceUrl + 'me/requests/' + requestedUsername,
@@ -59,10 +59,26 @@ app.factory('profileService', function ($http, baseServiceUrl, authenticationSer
 			.error(error);
 	}
 
+	function updateUser(user, success, error) {
+		var request = {
+			method: 'PUT',
+			url: baseServiceUrl + 'me',
+			headers: authenticationService.getAuthorizationHeaders(),
+			data: user
+        };
+        $http(request)
+			.success(function (data) {
+
+			success(data);
+		})
+			.error(error);
+	}
+
 	return {
 		fetchRequests: fetchRequests,
 		acceptRequest: acceptRequest,
 		rejectRequest: rejectRequest,
-		sendRequest: sendRequest
+		sendRequest: sendRequest,
+		updateUser: updateUser
 	};
 });

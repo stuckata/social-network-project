@@ -61,20 +61,20 @@
                 <h3 class="panel-title">Edit profile</h3>
             </div>
             <div class="panel-body">
-                <div class="col-md-12">
-                    <div class="col-md-12">
-                        <img class="img-thumbnail" alt="100x100" ng-src="{{request.user.profileImageData}}" data-holder-rendered="true" style="width: 620px; height: 100px;">
+                <div class="col-md-12" >
+                    <div class="col-md-12" flow-init>
+                        <img flow-img="$flow.files[0]" style="width: 620px; height: 100px;" />
                         <div class="col-md-offset-10" style="margin-top: 2%;">
-                            <button type="button" class="btn btn-primary">
+                            <button type="button" class="btn btn-primary" flow-btn>
                                 <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
                                 <span class="glyphicon-class">Upload</span>
                             </button>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <img class="img-thumbnail" alt="100x100" ng-src="{{request.user.profileImageData}}" data-holder-rendered="true" style="width: 150px; height: 150px;">
+                    <div class="col-md-3" flow-init>
+                        <img flow-img="$flow.files[0]" style="width:150px; height: 150px;"/>
                         <div class="col-md-offset-2" style="margin-top: 5%;">
-                            <button type="button" class="btn btn-primary">
+                            <button type="button" class="btn btn-primary" flow-btn>
                                 <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
                                 <span class="glyphicon-class">Upload</span>
                             </button>
@@ -102,7 +102,7 @@
                         </div>
                         <hr />
                         <div class="col-md-offset-9" style="margin-top: 2%;">
-                            <button type="button" class="btn btn-primary">
+                            <button type="button" class="btn btn-primary" ng-click="updateUser(user)">
                                 <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
                                 <span class="glyphicon-class">Save</span>
                             </button>
