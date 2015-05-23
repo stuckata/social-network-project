@@ -1,6 +1,6 @@
 "use strict";
 
-app.controller('HomeController', function ($scope, $location, authenticationService, notificationService, userService, postsService, profileService) {
+app.controller('HomeController', function ($scope, $rootScope, $location, $routeParams, authenticationService, notificationService, userService, postsService, profileService) {
 
 	if (!authenticationService.isLoggedIn()) {
 		$location.path("/");
@@ -39,7 +39,7 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 
 	// тук трябва да се вика me/feed обаче не връща верен резултат!!!
 	var currentUser = JSON.parse(sessionStorage['currentUserInfo']);
-	userService.fetchWall(currentUser, "", 10,
+	userService.fetchWall(currentUser, "", 3,
 		function success(data) {
 			$scope.wall = data;
 		},
@@ -114,6 +114,7 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 				$scope.showSettings = !$scope.showSettings;
 				sessionStorage['currentUserInfo'] = JSON.stringify(data);
 				notificationService.showInfo("User data updated successfuly!");
+			
 			},
 			function error(error) {
 				notificationService.showError("Problem when updating user data", error);
@@ -134,6 +135,36 @@ app.controller('HomeController', function ($scope, $location, authenticationServ
 				console.log(error);
 			}
 			);
+	};
+
+	$scope.coverImageSelected = function (fileInputField) {
+		var file = fileInputField.files[0];
+		console.log(file);
+		if (file.type.match(/image\/.*/)) {
+			var reader = new FileReader();
+			reader.onload = function () {
+				$scope.user.coverImageData = reader.result;
+				$(".image-box1").html("<img src='" + reader.result + "'>");
+			};
+			reader.readAsDataURL(file);
+		} else {
+			$(".image-box1").html("<p>File type not supported!</p>");
+		}
+	};
+
+	$scope.profileImageSelected = function (fileInputField) {
+		var file = fileInputField.files[0];
+		console.log(file);
+		if (file.type.match(/image\/.*/)) {
+			var reader = new FileReader();
+			reader.onload = function () {
+				$scope.user.profileImageData = reader.result;
+				$(".image-box2").html("<img src='" + reader.result + "'>");
+			};
+			reader.readAsDataURL(file);
+		} else {
+			$(".image-box2").html("<p>File type not supported!</p>");
+		}
 	};
 
 });

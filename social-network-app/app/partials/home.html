@@ -1,4 +1,4 @@
-<div class="jumbotron">
+<div class="jumbotron" style="background-image: url({{currentUserInfo.coverImageData}})">
     <div class="row">
         <div class="col-md-3">
             <img class="img-thumbnail" alt="100x100" ng-src="{{currentUserInfo.profileImageData}}" data-holder-rendered="true" style="width: 100px; height: 100px;">
@@ -49,7 +49,9 @@
         </div>
     </div>
 </div>
+
 <div class="col-md-12 btn-primary" id="newsFeedContainer">
+
     <h1>
         <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>News Feed</h1>
 </div>
@@ -83,23 +85,26 @@
                 <h3 class="panel-title">Edit profile</h3>
             </div>
             <div class="panel-body">
+                <p></p>
                 <div class="col-md-12">
-                    <div class="col-md-12" flow-init>
-                        <img flow-img="$flow.files[0]" style="width: 620px; height: 100px;" file-model="user.coverImageData" />
-                        <div class="col-md-offset-10" style="margin-top: 2%;">
-                            <button type="button" class="btn btn-primary" flow-btn>
-                                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
-                                <span class="glyphicon-class">Upload</span>
-                            </button>
+                    <div class="col-md-12">
+                        <div class="image-box1">
+                            <p ng-if="!user.coverImageData">Image Preview</p>
+                            <img ng-if="user.coverImageData" ng-src="{{user.coverImageData}}" alt="" style="width: 620px; height: 100px;"
+                            />
+                        </div>
+                        <div class="col-md-offset-1" style="margin: 2%;">
+                            <input type="file" id="image1" onchange="angular.element(this).scope().coverImageSelected(this)" />
                         </div>
                     </div>
-                    <div class="col-md-3" flow-init>
-                        <img flow-img="$flow.files[0]" style="width:150px; height: 150px;" file-model="user.profileImageData" />
-                        <div class="col-md-offset-2" style="margin-top: 5%;">
-                            <button type="button" class="btn btn-primary" flow-btn>
-                                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
-                                <span class="glyphicon-class">Upload</span>
-                            </button>
+                    <div class="col-md-3" \>
+                        <div class="image-box2">
+                            <p ng-if="!user.profileImageData">Image Preview</p>
+                            <img ng-if="user.profileImageData" ng-src="{{user.profileImageData}}" alt="" style="width: 150px; height: 150px;"
+                            />
+                        </div>
+                        <div class="col-md-offset-1" style="margin: 2%;">
+                            <input type="file" id="image2" onchange="angular.element(this).scope().profileImageSelected(this)" />
                         </div>
                     </div>
                     <div class="col-md-9">
