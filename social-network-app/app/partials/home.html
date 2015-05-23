@@ -1,8 +1,10 @@
 <div class="jumbotron" style="background-image: url({{currentUserInfo.coverImageData}})">
     <div class="row">
         <div class="col-md-3">
-            <img class="img-thumbnail" alt="100x100" ng-src="{{currentUserInfo.profileImageData}}" data-holder-rendered="true" style="width: 100px; height: 100px;">
-            <span>
+            <img class="img-thumbnail" ng-if="!currentUserInfo.profileImageData" src="/img/no_img.jpg" style="width: 100px; height: 100px;"></img>
+            <img class="img-thumbnail" ng-if="currentUserInfo.profileImageData" ng-src="{{currentUserInfo.profileImageData}}"
+            data-holder-rendered="true" style="width: 100px; height: 100px;">
+            <span class="btn btn-primary" ng-disabled="true">
                 <b>{{currentUserInfo.name}}</b>
             </span>
         </div>
@@ -40,7 +42,9 @@
                 </div>
                 <ul class="dropdown-menu" role="menu">
                     <li ng-repeat="user in searchResults" ng-click="openUserProfile(user)">
-                        <a><img class="img-thumbnail" alt="pic" ng-src="{{user.profileImageData}}"
+                        <a>
+                            <img class="img-thumbnail" ng-if="!user.profileImageData" src="/img/no_img.jpg" style="width: 50px; height: 50px;"></img>
+                            <img class="img-thumbnail" ng-if="user.profileImageData" alt="pic" ng-src="{{user.profileImageData}}"
                 data-holder-rendered="true" style="width: 50px; height: 50px;" role="menuitem">{{user.name}}</a>
                     </li>
                 </ul>
@@ -49,9 +53,7 @@
         </div>
     </div>
 </div>
-
 <div class="col-md-12 btn-primary" id="newsFeedContainer">
-
     <h1>
         <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>News Feed</h1>
 </div>
@@ -89,7 +91,7 @@
                 <div class="col-md-12">
                     <div class="col-md-12">
                         <div class="image-box1">
-                            <p ng-if="!user.coverImageData">Image Preview</p>
+                            <p>Upload cover image</p>
                             <img ng-if="user.coverImageData" ng-src="{{user.coverImageData}}" alt="" style="width: 620px; height: 100px;"
                             />
                         </div>
@@ -99,7 +101,7 @@
                     </div>
                     <div class="col-md-3" \>
                         <div class="image-box2">
-                            <p ng-if="!user.profileImageData">Image Preview</p>
+                            <img class="img-thumbnail" ng-if="!user.profileImageData" src="/img/no_img.jpg" style="width: 150px; height: 150px;"></img>
                             <img ng-if="user.profileImageData" ng-src="{{user.profileImageData}}" alt="" style="width: 150px; height: 150px;"
                             />
                         </div>
@@ -142,7 +144,9 @@
         <!-- Show requests -->
         <div class="panel panel-danger" ng-show="showNewRequests" ng-repeat="request in requests">
             <div class="panel-heading">
-                <a><img class="img-thumbnail" alt="100x100" ng-src="{{request.user.profileImageData}}"
+                <a>
+                    <img class="img-thumbnail" ng-if="!request.user.profileImageData" src="/img/no_img.jpg" style="width: 50px; height: 50px;"></img>
+                    <img class="img-thumbnail" ng-if="request.user.profileImageData" alt="100x100" ng-src="{{request.user.profileImageData}}"
                 data-holder-rendered="true" style="width: 50px; height: 50px;"></a>
                 <span>
                     <b>{{request.user.name}}</b>
@@ -181,7 +185,9 @@
         <div ng-repeat="post in wall" ng-hide="!showNewPost && (showNewRequests || showSettings || showPasswordChange)">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <a><img class="img-thumbnail" alt="100x100" ng-src="{{post.author.profileImageData}}"
+                    <a>
+                       <img class="img-thumbnail" ng-if="!post.author.profileImageData" src="/img/no_img.jpg" style="width: 50px; height: 50px;">
+                       <img class="img-thumbnail" ng-if="post.author.profileImageData" alt="100x100" ng-src="{{post.author.profileImageData}}"
                 data-holder-rendered="true" style="width: 50px; height: 50px;"></a>
                     <span>
                         <b>{{post.author.name}}</b>
@@ -212,7 +218,9 @@
             <div ng-repeat="comment in post.comments">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a><img class="img-thumbnail" alt="100x100" ng-src="{comment.author.profileImageData}}"
+                        <a>
+                            <img class="img-thumbnail" ng-if="!comment.author.profileImageData" src="/img/no_img.jpg" style="width: 50px; height: 50px;">
+                            <img class="img-thumbnail" ng-if="comment.author.profileImageData" alt="100x100" ng-src="{{comment.author.profileImageData}}"
                 data-holder-rendered="true" style="width: 50px; height: 50px;"></a>
                         <span>
                             <b>{{comment.author.name}}</b>
@@ -248,7 +256,8 @@
                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>({{friends.length || 0}}) Friends</h4>
             </div>
             <a href="" class="list-group-item" ng-repeat="friend in friends" ng-click="openUserProfile(friend)">
-              <img ng-src="{{friend.profileImageData}}" 
+                <img class="img-thumbnail" ng-if="!friend.profileImageData" src="/img/no_img.jpg" style="width: 50px; height: 50px;">
+              <img ng-src="{{friend.profileImageData}}"   ng-if="friend.profileImageData"
             data-holder-rendered="true" style="width: 50px; height: 50px;">
             <span>
                <b>{{friend.name}}</b>

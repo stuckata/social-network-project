@@ -1,10 +1,12 @@
 <div class="col-md-12 btn-primary" id="newsFeedContainer">
     <div>
-        <a><img class="img-thumbnail" alt="100x100" ng-src="{{selectedUser.profileImageData}}"
-                data-holder-rendered="true" style="width: 100px; height: 100px;"></a>
+        <a>
+            <img class="img-thumbnail" ng-if="!selectedUser.profileImageData" src="/img/no_img.jpg" style="width: 100px; height: 100px;">
+            <img class="img-thumbnail" alt="100x100" ng-src="{{selectedUser.profileImageData}}"
+                data-holder-rendered="true" style="width: 100px; height: 100px;" ng-if="selectedUser.profileImageData"></a>
         <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
         <b>{{selectedUser.name}}</b>
-        <button type="button" class="btn btn-success" ng-hide="{{selectedUser.isFriend}}" ng-click="sendFriendRequest(selectedUser.username)">
+        <button type="button" class="btn btn-success" ng-hide="{{selectedUser.isFriend || selectedUser.hasPendingRequest}}" ng-click="sendFriendRequest(selectedUser.username)">
             <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
             <span class="glyphicon-class">Send friend request</span>
         </button>
@@ -16,7 +18,9 @@
         <div ng-repeat="post in wall">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <a><img class="img-thumbnail" alt="100x100" ng-src="{{post.author.profileImageData}}"
+                    <a>
+                        <img class="img-thumbnail" ng-if="!post.author.profileImageData" src="/img/no_img.jpg" style="width: 50px; height: 50px;">
+                        <img class="img-thumbnail" ng-if="post.author.profileImageData" alt="100x100" ng-src="{{post.author.profileImageData}}"
                 data-holder-rendered="true" style="width: 50px; height: 50px;"></a>
                     <span>
                         <b>{{post.author.name}}</b>
@@ -36,7 +40,7 @@
                             <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                             <span class="glyphicon-class">({{post.likesCount}}) Unlike</span>
                         </button>
-                        <button type="button" class="btn btn-xs btn-defaut">
+                        <button type="button" class="btn btn-xs btn-defaut" ng-click="post.showComments = !post.showComments">
                             <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
                             <span class="glyphicon-class">({{post.totalCommentsCount}}) Comments</span>
                         </button>
@@ -44,10 +48,12 @@
                 </div>
             </div>
             <!-- comments -->
-            <div ng-repeat="comment in post.comments">
+            <div ng-repeat="comment in post.comments" ng-show="post.showComments">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a><img class="img-thumbnail" alt="100x100" ng-src="{comment.author.profileImageData}}"
+                        <a>
+                           <img class="img-thumbnail" ng-if="!comment.author.profileImageData" src="/img/no_img.jpg" style="width: 50px; height: 50px;">
+                            <img class="img-thumbnail" ng-if="comment.author.profileImageData" alt="100x100" ng-src="{{comment.author.profileImageData}}"
                 data-holder-rendered="true" style="width: 50px; height: 50px;"></a>
                         <span>
                             <b>{{comment.author.name}}</b>
@@ -83,7 +89,8 @@
                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>({{friends.length || 0}}) Friends</h4>
             </div>
             <a href="" class="list-group-item" ng-repeat="friend in friends" ng-click="openUserProfile(friend)">
-              <img ng-src="{{friend.profileImageData}}" 
+                <img class="img-thumbnail" ng-if="!friend.profileImageData" src="/img/no_img.jpg" style="width: 50px; height: 50px;">
+              <img ng-src="{{friend.profileImageData}}" ng-if="friend.profileImageData"
             data-holder-rendered="true" style="width: 50px; height: 50px;">
             <span>
                <b>{{friend.name}}</b>
