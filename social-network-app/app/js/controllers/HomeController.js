@@ -1,6 +1,6 @@
 "use strict";
 
-app.controller('HomeController', function ($scope, $rootScope, $location, $routeParams, authenticationService, notificationService, userService, postsService, profileService) {
+app.controller('HomeController', function ($scope, $rootScope, $location, $routeParams, authenticationService, notificationService, userService, postsService, profileService, commentsService) {
 
 	if (!authenticationService.isLoggedIn()) {
 		$location.path("/");
@@ -165,6 +165,18 @@ app.controller('HomeController', function ($scope, $rootScope, $location, $route
 		} else {
 			$(".image-box2").html("<p>File type not supported!</p>");
 		}
+	};
+	
+	var comment = {};
+	$scope.postComment = function (post, commentContent , message) {
+		comment.CommentContent = commentContent;
+		commentsService.postCommnent(post.id, comment, function success(data) {
+			post.comments.push(data);
+		},
+			function error(error) {
+				notificationService.showError("Problem while posting the message", error);
+				console.log(error);
+			});
 	};
 
 });

@@ -27,9 +27,26 @@ app.factory('commentsService', function ($http, baseServiceUrl, authenticationSe
 		})
 			.error(error);
 	}
+	
+	
+	function postCommnent(postId, comment, success, error) {
+				console.log(comment);
+		var request = {
+			method: 'POST',
+			url: baseServiceUrl + 'posts/' + postId + "/comments",
+			headers: authenticationService.getAuthorizationHeaders(),
+			data: comment
+        };
+        $http(request)
+			.success(function (data) {
+			success(data);
+		})
+			.error(error);
+	}
 
 	return {
 		fetchPostCommnents: fetchPostCommnents,
-		fetchCommnentLikes: fetchCommnentLikes
+		fetchCommnentLikes: fetchCommnentLikes,
+		postCommnent: postCommnent
 	};
 });
