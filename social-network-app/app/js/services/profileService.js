@@ -17,10 +17,10 @@ app.factory('profileService', function ($http, baseServiceUrl, authenticationSer
 			.error(error);
 	}
 
-	function acceptRequest(reqiestId, success, error) {
+	function acceptRequest(requestId, success, error) {
 		var request = {
 			method: 'PUT',
-			url: baseServiceUrl + 'me/requests/' + reqiestId + "?status=approved",
+			url: baseServiceUrl + 'me/requests/' + requestId + "?status=approved",
 			headers: authenticationService.getAuthorizationHeaders(),
         };
         $http(request)
@@ -31,10 +31,24 @@ app.factory('profileService', function ($http, baseServiceUrl, authenticationSer
 			.error(error);
 	}
 
-	function rejectRequest(reqiestId, success, error) {
+	function rejectRequest(requestId, success, error) {
 		var request = {
 			method: 'PUT',
-			url: baseServiceUrl + 'me/requests/' + reqiestId + "?status=rejected",
+			url: baseServiceUrl + 'me/requests/' + requestId + "?status=rejected",
+			headers: authenticationService.getAuthorizationHeaders(),
+        };
+        $http(request)
+			.success(function (data) {
+
+			success(data);
+		})
+			.error(error);
+	}
+	
+		function sendRequest(requestedUsername, success, error) {
+		var request = {
+			method: 'POST',
+			url: baseServiceUrl + 'me/requests/' + requestedUsername,
 			headers: authenticationService.getAuthorizationHeaders(),
         };
         $http(request)
@@ -48,6 +62,7 @@ app.factory('profileService', function ($http, baseServiceUrl, authenticationSer
 	return {
 		fetchRequests: fetchRequests,
 		acceptRequest: acceptRequest,
-		rejectRequest: rejectRequest
+		rejectRequest: rejectRequest,
+		sendRequest: sendRequest
 	};
 });
