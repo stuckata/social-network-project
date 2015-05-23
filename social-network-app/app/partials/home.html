@@ -30,15 +30,21 @@
             </button>
         </div>
         <div class="col-md-3" id="friendsSearch">
+            <!-- Single button -->
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term" ng-model="searchTerm" ng-keyup="search(searchTerm)">
-                <div class="input-group-btn">
-                    <button class="btn btn-primary" ng-click="search(searchTerm)">
+                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term" ng-model="searchTerm" ng-keyup="search(searchTerm)"
+                data-toggle="dropdown">
+                 <div class="input-group-btn">
+                    <span class="btn btn-primary" ng-disabled="true">
                         <i class="glyphicon glyphicon-search"></i>
-                    </button>
+                    </span>
                 </div>
+                <ul class="dropdown-menu" role="menu">
+                    <li ng-repeat="user in searchResults">
+                        <a role="menuitem">{{user.username}} </a>
+                    </li>
+                </ul>
             </div>
-                        <select ng-model="selected[selectedUser]" ng-options="user as user.name for user in searchResults track by user" multiple></select>
         </div>
     </div>
 </div>
