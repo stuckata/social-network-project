@@ -86,7 +86,7 @@ app.controller('AppController', function ($modal, $scope, $location, authenticat
 	$scope.postComment = function (post, commentContent, message) {
 		comment.CommentContent = commentContent;
 		commentsService.postCommnent(post.id, comment, function success(data) {
-			post.comments.push(data);
+			post.comments.unshift(data);
 		},
 			function error(error) {
 				notificationService.showError("Problem while posting the message", error);
