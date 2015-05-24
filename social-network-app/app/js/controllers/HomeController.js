@@ -1,6 +1,6 @@
 "use strict";
 
-app.controller('HomeController', function ($scope, $rootScope, $location, $routeParams, authenticationService, notificationService, userService, postsService, profileService, commentsService) {
+app.controller('HomeController', function ($modal, $scope, $rootScope, $location, $routeParams, authenticationService, notificationService, userService, postsService, profileService, commentsService) {
 
 	if (!authenticationService.isLoggedIn()) {
 		$location.path("/");
@@ -37,9 +37,7 @@ app.controller('HomeController', function ($scope, $rootScope, $location, $route
 		}
 		);
 
-	// тук трябва да се вика me/feed обаче не връща верен резултат!!!
-	var currentUser = JSON.parse(sessionStorage['currentUserInfo']);
-	userService.fetchWall(currentUser, "", 3,
+	userService.fetchMyWall("", 10,
 		function success(data) {
 			$scope.wall = data;
 		},
@@ -53,21 +51,6 @@ app.controller('HomeController', function ($scope, $rootScope, $location, $route
 		$location.path("/friends");
 	};
 
-	var post = {};
-	$scope.postMessage = function (username, message) {
-		post.username = username;
-		post.postContent = message;
-
-		postsService.publishPost(post, function success(data) {
-			$scope.wall.unshift(data);
-			$scope.showNewPost = !$scope.showNewPost;
-		},
-			function error(error) {
-				notificationService.showError("Problem while posting the message", error);
-				console.log(error);
-			});
-	};
-
 	profileService.fetchRequests(
 		function success(data) {
 			$scope.requests = data;
@@ -78,11 +61,85 @@ app.controller('HomeController', function ($scope, $rootScope, $location, $route
 		}
 		);
 
-	$scope.approveRequest = function (requestId) {
+	var comment = {};
+	$scope.postComment = function (post, commentContent, message) {
+		comment.CommentContent = commentContent;
+		commentsService.postCommnent(post.id, comment, function success(data) {
+			post.comments.push(data);
+		},
+			function error(error) {
+				notificationService.showError("Problem while posting the message", error);
+				console.log(error);
+			});
+	};
+
+
+
+	$scope.animationsEnabled = false;
+	$scope.currentUserInfo = JSON.parse(sessionStorage['currentUserInfo']);
+	$scope.username = $scope.currentUserInfo.username;
+
+	$scope.openDialog = function (size, templateUrl) {
+		var modalInstance = $modal.open({
+			animation: $scope.animationsEnabled,
+			templateUrl: templateUrl,
+			controller: 'ModalInstanceCtrl',
+			size: size,
+			resolve: {
+				username: function () {
+					return $scope.username;
+				},
+				wall: function () {
+					return $scope.wall;
+				},
+				requests: function () {
+					return $scope.requests;
+				},
+				friends: function () {
+					return $scope.friends;
+				},
+				user: function () {
+					return $scope.currentUserInfo;
+				}
+			}
+		});
+
+		modalInstance.result.then(function () {
+		}, function () {
+				console.log('Modal dismissed at: ' + new Date());
+			});
+	};
+});
+
+app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, postsService, notificationService, profileService, username, wall, requests, friends, user) {
+
+	$scope.username = username;
+	$scope.wall = wall;
+	$scope.requests = requests;
+	$scope.friends = friends;
+	$scope.user = user;
+
+	var post = {};
+	$scope.postMessage = function (message) {
+
+		post.username = $scope.username;
+		post.postContent = message;
+
+		postsService.publishPost(post, function success(data) {
+			$scope.wall.unshift(data);
+			$modalInstance.dismiss('cancel');
+		},
+			function error(error) {
+				notificationService.showError("Problem while posting the message", error);
+				console.log(error);
+			});
+	};
+
+	$scope.approveRequest = function (requestId, index) {
 		profileService.acceptRequest(requestId,
 			function success(data) {
 				$scope.friends.unshift(data);
-				$scope.showNewRequests = !$scope.showNewRequests;
+				$scope.requests.splice(index, 1);
 				notificationService.showInfo("Congrats! You have a new friend!");
 			},
 			function error(error) {
@@ -92,10 +149,11 @@ app.controller('HomeController', function ($scope, $rootScope, $location, $route
 			);
 	};
 
-	$scope.rejectRequest = function (requestId) {
+	$scope.rejectRequest = function (requestId, index) {
 		profileService.rejectRequest(requestId,
 			function success(data) {
-				$scope.showNewRequests = !$scope.showNewRequests;
+				$scope.friends.unshift(data);
+				$scope.requests.splice(index, 1);
 				notificationService.showInfo("You lost a friend successfuly!");
 			},
 			function error(error) {
@@ -105,33 +163,16 @@ app.controller('HomeController', function ($scope, $rootScope, $location, $route
 			);
 	};
 
-	$scope.user = JSON.parse(sessionStorage['currentUserInfo']);
+
 	$scope.updateUser = function (user) {
 		console.log(user);
 		profileService.updateUser(user,
 			function success(data) {
-				console.log(data);
-				$scope.showSettings = !$scope.showSettings;
-				sessionStorage['currentUserInfo'] = JSON.stringify(data);
 				notificationService.showInfo("User data updated successfuly!");
-			
+				$modalInstance.dismiss('cancel');
 			},
 			function error(error) {
 				notificationService.showError("Problem when updating user data", error);
-				console.log(error);
-			}
-			);
-	};
-
-	$scope.passwordChange = function (userPass) {
-		console.log(userPass);
-		profileService.changePassword(userPass,
-			function success(data) {
-				$scope.showPasswordChange = !$scope.showPasswordChange;
-				notificationService.showInfo("User password updated successfuly!");
-			},
-			function error(error) {
-				notificationService.showError("Problem when updating user password", error);
 				console.log(error);
 			}
 			);
@@ -166,17 +207,26 @@ app.controller('HomeController', function ($scope, $rootScope, $location, $route
 			$(".image-box2").html("<p>File type not supported!</p>");
 		}
 	};
-	
-	var comment = {};
-	$scope.postComment = function (post, commentContent , message) {
-		comment.CommentContent = commentContent;
-		commentsService.postCommnent(post.id, comment, function success(data) {
-			post.comments.push(data);
-		},
+
+	$scope.passwordChange = function (userPass) {
+		profileService.changePassword(userPass,
+			function success(data) {
+				$modalInstance.dismiss('cancel');
+				notificationService.showInfo("User password updated successfuly!");
+			},
 			function error(error) {
-				notificationService.showError("Problem while posting the message", error);
+				notificationService.showError("Problem when updating user password", error);
 				console.log(error);
-			});
+			}
+			);
 	};
 
+
+	$scope.ok = function () {
+		$modalInstance.close();
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+	};
 });

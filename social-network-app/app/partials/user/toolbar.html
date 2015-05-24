@@ -1,0 +1,189 @@
+<div class="jumbotron" style="background-image: url({{currentUserInfo.coverImageData}})">
+    <div class="row">
+        <div class="col-md-3">
+            <img class="img-thumbnail" ng-if="!currentUserInfo.profileImageData" src="/img/no_img.jpg" style="width: 100px; height: 100px;"></img>
+            <img class="img-thumbnail" ng-if="currentUserInfo.profileImageData" ng-src="{{currentUserInfo.profileImageData}}"
+            data-holder-rendered="true" style="width: 100px; height: 100px;">
+            <span class="btn btn-primary" ng-disabled="true">
+                <b>{{currentUserInfo.name}}</b>
+            </span>
+        </div>
+        <div class="col-md-5" id="homeButtons">
+            <button type="button" class="btn btn-primary" ng-click="openDialog('lg', 'postsDialog')">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                <span class="glyphicon-class">Post</span>
+            </button>
+            <button type="button" class="btn btn-primary" ng-click="openDialog('lg', 'requestsDialog')">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <span class="glyphicon-class">({{requests.length || 0}}) Requests</span>
+            </button>
+            <button type="button" class="btn btn-primary" ng-click="openDialog('lg', 'settingsDialog')">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                <span class="glyphicon-class">Settings</span>
+            </button>
+            <button type="button" class="btn btn-primary" ng-click="openDialog('lg', 'passwordChangeDialog')">
+                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                <span class="glyphicon-class">Password change</span>
+            </button>
+            <button type="button" class="btn btn-danger" ng-click="logout()">
+                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                <span class="glyphicon-class">Logout</span>
+            </button>
+        </div>
+        <div class="col-md-3" id="friendsSearch">
+            <!-- Search friends-->
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term" ng-model="searchTerm" ng-keyup="search(searchTerm)"
+                data-toggle="dropdown">
+                <div class="input-group-btn">
+                    <span class="btn btn-primary" ng-disabled="true">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </span>
+                </div>
+                <ul class="dropdown-menu" role="menu">
+                    <li ng-repeat="user in searchResults" ng-click="openUserProfile(user)">
+                        <a>
+                            <img class="img-thumbnail" ng-if="!user.profileImageData" src="/img/no_img.jpg" style="width: 50px; height: 50px;"></img>
+                            <img class="img-thumbnail" ng-if="user.profileImageData" alt="pic" ng-src="{{user.profileImageData}}"
+                data-holder-rendered="true" style="width: 50px; height: 50px;" role="menuitem">{{user.name}}</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Search friends-->
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="postsDialog">
+    <div class="modal-header panel-heading">
+            <h3 class="modal-title">Type message</h3>
+    </div>
+    <div class="modal-body">          
+        <!-- new post --->
+                <textarea ng-model="postContent" cols="70" rows="2"></textarea>
+        <!-- new post --->
+     </div>
+     <div class="modal-footer">
+        <button type="button" class="btn btn-success" ng-click="postMessage(postContent)">Publish</button>
+        <button class="btn btn-warning" ng-click="cancel()">Close</button>
+    </div>
+</script>
+<script type="text/ng-template" id="requestsDialog">
+    <div class="modal-header panel-heading">
+            <h3 class="modal-title">Friend requests</h3>
+    </div>
+    <div class="modal-body">          
+       <!-- Show requests -->
+        <div class="panel panel-danger" ng-repeat="request in requests">
+            <div class="panel-heading">
+                <a>
+                    <img class="img-thumbnail" ng-if="!request.user.profileImageData" src="/img/no_img.jpg" style="width: 50px; height: 50px;"></img>
+                    <img class="img-thumbnail" ng-if="request.user.profileImageData" alt="100x100" ng-src="{{request.user.profileImageData}}"
+                data-holder-rendered="true" style="width: 50px; height: 50px;"></a>
+                <span>
+                    <b>{{request.user.name}}</b>
+                </span>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-6 col-md-offset-9">
+                    <button type="button" class="btn btn-xs btn-primary" ng-click="approveRequest(request.id, $index)">
+                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                        <span class="glyphicon-class">Accept</span>
+                    </button>
+                    <button type="button" class="btn btn-xs btn-danger" ng-click="rejectRequest(request.id, $index)">
+                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                        <span class="glyphicon-class">Reject</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Show requests -->
+     </div>
+     <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">Close</button>
+    </div>
+</script>
+<script type="text/ng-template" id="settingsDialog">
+    <div class="modal-header panel-heading">
+            <h3 class="modal-title">Edit profile</h3>
+    </div>
+    <div class="modal-body">          
+         <!-- user settings -->
+            <div class="panel-body">
+                <p></p>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="image-box1">
+                            <p>Upload cover image</p>
+                            <img ng-if="user.coverImageData" ng-src="{{user.coverImageData}}" alt="" style="width: 620px; height: 100px;"
+                            />
+                        </div>
+                        <div class="col-md-offset-1" style="margin: 2%;">
+                            <input type="file" id="image1" onchange="angular.element(this).scope().coverImageSelected(this)" />
+                        </div>
+                    </div>
+                    <div class="col-md-3" \>
+                        <div class="image-box2">
+                            <img class="img-thumbnail" ng-if="!user.profileImageData" src="/img/no_img.jpg" style="width: 150px; height: 150px;"></img>
+                            <img ng-if="user.profileImageData" ng-src="{{user.profileImageData}}" alt="" style="width: 150px; height: 150px;"
+                            />
+                        </div>
+                        <div class="col-md-offset-1" style="margin: 2%;">
+                            <input type="file" id="image2" onchange="angular.element(this).scope().profileImageSelected(this)" />
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <b>Name:</b>
+                        <input type="text" id="name" class="form-control" placeholder="name..." required autofocus ng-model="user.name">
+                        <b>Email:</b>
+                        <input type="email" id="email" class="form-control" placeholder="email..." required autofocus ng-model="user.email">
+                        <b>Gender:</b>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="gender" ng-model="user.gender" value="1">
+                                <b>Male</b>
+                            </label>
+                            <label>
+                                <input type="radio" name="gender" ng-model="user.gender" value="2">
+                                <b>Female</b>
+                            </label>
+                            <label>
+                                <input type="radio" name="gender" ng-model="user.gender" value="0">
+                                <b>Other</b>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- user settings -->
+     </div>
+     <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" ng-click="updateUser(user)">
+                                <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+                                <span class="glyphicon-class">Save</span>
+                            </button>
+        <button class="btn btn-warning" ng-click="cancel()">Close</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="passwordChangeDialog">
+    <div class="modal-header panel-heading">
+            <h3 class="modal-title">Change Password</h3>
+    </div>
+    <div class="modal-body">          
+         <!-- password change -->
+        <b>Old Password:</b>
+        <input type="password" class="form-control" placeholder="old password..." required ng-model="userPass.OldPassword">
+        <b>New Password:</b>
+        <input type="password" class="form-control" placeholder="new password..." required ng-model="userPass.NewPassword">
+        <b>Confirm New Password:</b>
+        <input type="password" class="form-control" placeholder="confirm new password..." required ng-model="userPass.ConfirmPassword">
+        <!-- password change -->
+     </div>
+     <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="passwordChange(userPass)">
+                <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+                <span class="glyphicon-class">Save</span>
+            </button>
+        <button class="btn btn-warning" ng-click="cancel()">Close</button>
+    </div>
+</script>

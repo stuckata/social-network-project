@@ -1,6 +1,6 @@
 "use strict";
 
-var app = angular.module('SocialNetworkApp', ['ngRoute', 'ngResource', 'LocalStorageModule', 'flow']);
+var app = angular.module('SocialNetworkApp', ['ngRoute', 'ngResource', 'LocalStorageModule', 'ui.bootstrap']);
 
 app.constant('baseServiceUrl', 'http://softuni-social-network.azurewebsites.net/api/');
 
@@ -26,5 +26,6 @@ app.config(function ($routeProvider) {
 		templateUrl: 'partials/user-profile.html',
 		controller: 'UserProfileController'
 	})
+	
 	;
 });
