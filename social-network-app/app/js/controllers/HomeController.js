@@ -21,8 +21,8 @@ app.controller('HomeController', function ($modal, $scope, $rootScope, $location
 			console.log(error);
 		}
 		);
-		
-		
+
+
 	$scope.openUserProfile = function (selectedUser) {
 		userService.preview(selectedUser, function success(data) {
 			console.log(data);
