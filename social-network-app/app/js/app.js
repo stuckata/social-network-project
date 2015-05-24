@@ -25,7 +25,6 @@ app.config(function ($routeProvider) {
 		.when('/user-profile', {
 		templateUrl: 'partials/user-profile.html',
 		controller: 'UserProfileController'
-	})
-	
-	;
+	});
+
 });
