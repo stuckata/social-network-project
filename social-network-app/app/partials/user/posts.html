@@ -32,7 +32,7 @@
             <br></br>
             <div>
                 <!-- new comment --->
-                <div class="panel panel-success" ng-show="post.showComments">
+                <div class="panel panel-success" ng-show="post.showComments && (post.author.id == currentUserInfo.id || post.wallOwner.id == currentUserInfo.id || post.author.isFriend || post.wallOwner.isFriend)">
                     <div class="panel-heading">
                         <h3 class="panel-title">Type message</h3>
                     </div>
