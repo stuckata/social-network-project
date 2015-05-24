@@ -2,6 +2,12 @@
 
 app.controller('FriendsController', function ($modal, $scope, $location, authenticationService, userService, profileService, commentsService, notificationService, postsService) {
 
+
+	if (!authenticationService.isLoggedIn()) {
+		$location.path("/");
+		notificationService.showInfo("You must login to proceed!");
+	}
+	
 	userService.fetchMyFriends(
 		function success(data) {
 			$scope.friends = data;
