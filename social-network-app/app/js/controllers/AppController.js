@@ -12,8 +12,15 @@ app.controller('AppController', function ($modal, $scope, $location, authenticat
 
 	$scope.openUserProfile = function (selectedUser) {
 		userService.preview(selectedUser, function success(data) {
+			console.log(data);
+			$scope.currentUserInfo = JSON.parse(sessionStorage['currentUserInfo']);
 			sessionStorage['selectedUser'] = JSON.stringify(data);
-			$location.path("/user-profile");
+			if ($scope.currentUserInfo.id == data.id) {
+				$location.path("/home");
+			} else {
+				$location.path("/user-profile");
+			}
+
 		},
 			function error(error) {
 				notificationService.showError("Navigation to selected profile failed", error);

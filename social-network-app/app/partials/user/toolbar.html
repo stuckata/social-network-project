@@ -1,12 +1,13 @@
 <div class="jumbotron" style="background-image: url({{currentUserInfo.coverImageData}})">
     <div class="row">
         <div class="col-md-3">
+            <a ng-href="#/home">
             <img class="img-thumbnail" ng-if="!currentUserInfo.profileImageData" src="/img/no_img.jpg" style="width: 100px; height: 100px;"></img>
             <img class="img-thumbnail" ng-if="currentUserInfo.profileImageData" ng-src="{{currentUserInfo.profileImageData}}"
             data-holder-rendered="true" style="width: 100px; height: 100px;">
-            <span class="btn btn-primary" ng-disabled="true">
+            <span class="btn btn-primary">
                 <b>{{currentUserInfo.name}}</b>
-            </span>
+            </span></a>
         </div>
         <div class="col-md-5" id="homeButtons">
             <button type="button" class="btn btn-primary" ng-click="openDialog('lg', 'postsDialog')">
