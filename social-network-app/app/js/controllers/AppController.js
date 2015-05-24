@@ -4,6 +4,11 @@ app.controller('AppController', function ($modal, $scope, $location, authenticat
 
 	$scope.authenticationService = authenticationService;
 
+	if (!authenticationService.isLoggedIn()) {
+		notificationService.showInfo("You must login to proceed!");
+		$location.path("/");
+	}
+
 	$scope.logout = function () {
 		authenticationService.logout();
 		notificationService.showInfo("Logout successful");
