@@ -193,6 +193,18 @@ app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, postsServi
 			}
 			);
 	};
+	
+	$scope.deletePostLike = function (postId) {
+		console.log(postId);
+		postsService.deletePostLikes(postId,
+			function success(data) {
+			},
+			function error(error) {
+				notificationService.showError("Problem to delete this like", error);
+				console.log(error);
+			}
+			);
+	};
 
 	$scope.updateUser = function (user) {
 		console.log(user);
