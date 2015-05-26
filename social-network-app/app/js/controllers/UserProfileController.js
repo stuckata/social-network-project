@@ -1,13 +1,13 @@
 "use strict";
 
-app.controller('UserProfileController', function ($modal, $scope, $location, authenticationService, notificationService, userService, postsService, profileService) {
+app.controller('UserProfileController', function ($modal, $scope, $location, authenticationService, notificationService, userService, postsService, profileService, commentsService) {
 
 
 	if (!authenticationService.isLoggedIn()) {
 		$location.path("/");
 		notificationService.showInfo("You must login to proceed!");
 	}
-	
+
 	$scope.selectedUser = JSON.parse(sessionStorage['selectedUser']);
 	console.log($scope.selectedUser);
 
@@ -63,9 +63,6 @@ app.controller('UserProfileController', function ($modal, $scope, $location, aut
 				console.log(error);
 			});
 	};
-
-
-
 
 	$scope.openUserProfile = function (selectedUser) {
 		userService.preview(selectedUser, function success(data) {

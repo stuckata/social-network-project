@@ -9,7 +9,4 @@ app.controller('AppController', function ($modal, $scope, $location, authenticat
 		notificationService.showInfo("Logout successful");
 		$location.path('/');
 	};
-
-	
-
 });

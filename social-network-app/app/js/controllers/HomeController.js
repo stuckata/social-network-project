@@ -182,6 +182,17 @@ app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, postsServi
 			);
 	};
 
+	$scope.likePost = function (postId) {
+		console.log(postId);
+		postsService.publishPostLikes(postId,
+			function success(data) {
+			},
+			function error(error) {
+				notificationService.showError("Problem liking this...", error);
+				console.log(error);
+			}
+			);
+	};
 
 	$scope.updateUser = function (user) {
 		console.log(user);

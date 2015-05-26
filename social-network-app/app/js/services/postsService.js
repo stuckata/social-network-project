@@ -55,6 +55,19 @@ app.factory('postsService', function ($http, baseServiceUrl, authenticationServi
 			.error(error);
 	}
 
+	function publishPostLikes(postId, success, error) {
+		var request = {
+			method: 'POST',
+			url: baseServiceUrl + 'posts/' + postId + "/likes",
+			headers: authenticationService.getAuthorizationHeaders()
+        };
+        $http(request)
+			.success(function (data) {
+			success(data);
+		})
+			.error(error);
+	}
+
 	function publishPost(post, success, error) {
 		var request = {
 			method: 'POST',
@@ -74,6 +87,7 @@ app.factory('postsService', function ($http, baseServiceUrl, authenticationServi
 		fetchPost: fetchPost,
 		fetchPostLikes: fetchPostLikes,
 		previewPostLikes: previewPostLikes,
+		publishPostLikes: publishPostLikes,
 		publishPost: publishPost
 	};
 });
