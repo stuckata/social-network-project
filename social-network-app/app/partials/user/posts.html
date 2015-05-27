@@ -16,7 +16,7 @@
         <div class="panel-body">
             <p>{{post.postContent}}</p>
             <div class="col-md-6 col-md-offset-8">
-                <button type="button" class="btn btn-xs btn-primary" ng-click="likePost(post.id)" ng-hide="{{post.liked}}">
+                <button type="button" class="btn btn-xs btn-primary" ng-hide="{{post.liked}}" ng-click="likePost(post.id)">
                     <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                     <span class="glyphicon-class">({{post.likesCount}}) Like</span>
                 </button>
@@ -64,7 +64,7 @@
                         <div class="panel-body">
                             <p>{{comment.commentContent}}</p>
                             <div class="col-md-6 col-md-offset-10">
-                                <button type="button" class="btn btn-xs btn-default" ng-hide="{{comment.liked}}">
+                                <button type="button" class="btn btn-xs btn-default" ng-hide="{{comment.liked}}" ng-click="likePost(post.id)">
                                     <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                                     <span class="glyphicon-class">({{comment.likesCount}}) Like</span>
                                 </button>

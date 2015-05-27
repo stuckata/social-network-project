@@ -92,6 +92,28 @@ app.controller('HomeController', function ($modal, $scope, $rootScope, $location
 			});
 	};
 
+	$scope.likePost = function (postId) {
+		postsService.publishPostLikes(postId,
+			function success(data) {
+			},
+			function error(error) {
+				notificationService.showError("Problem liking this...", error);
+				console.log(error);
+			}
+		);
+	};
+
+	$scope.deletePostLike = function (postId) {
+		postsService.deletePostLikes(postId,
+			function success(data) {
+			},
+			function error(error) {
+				notificationService.showError("Problem to delete this like", error);
+				console.log(error);
+			}
+		);
+	};
+
 
 	$scope.animationsEnabled = false;
 	$scope.openDialog = function (size, templateUrl) {
@@ -177,30 +199,6 @@ app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, postsServi
 			},
 			function error(error) {
 				notificationService.showError("Problem when rejecting request", error);
-				console.log(error);
-			}
-			);
-	};
-
-	$scope.likePost = function (postId) {
-		console.log(postId);
-		postsService.publishPostLikes(postId,
-			function success(data) {
-			},
-			function error(error) {
-				notificationService.showError("Problem liking this...", error);
-				console.log(error);
-			}
-			);
-	};
-	
-	$scope.deletePostLike = function (postId) {
-		console.log(postId);
-		postsService.deletePostLikes(postId,
-			function success(data) {
-			},
-			function error(error) {
-				notificationService.showError("Problem to delete this like", error);
 				console.log(error);
 			}
 			);
