@@ -81,6 +81,19 @@ app.factory('postsService', function ($http, baseServiceUrl, authenticationServi
 			.error(error);
 	}
 
+	function deletePost(postId, success, error) {
+		var request = {
+			method: 'DELETE',
+			url: baseServiceUrl + 'posts/' + postId,
+			headers: authenticationService.getAuthorizationHeaders()
+		};
+		$http(request)
+			.success(function (data) {
+				success(data);
+			})
+			.error(error);
+	}
+
 	function publishPost(post, success, error) {
 		var request = {
 			method: 'POST',
@@ -102,6 +115,7 @@ app.factory('postsService', function ($http, baseServiceUrl, authenticationServi
 		previewPostLikes: previewPostLikes,
 		publishPostLikes: publishPostLikes,
 		deletePostLikes: deletePostLikes,
+		deletePost: deletePost,
 		publishPost: publishPost
 	};
 });

@@ -92,6 +92,17 @@ app.controller('HomeController', function ($modal, $scope, $rootScope, $location
 			});
 	};
 
+	$scope.deletePost = function (postId) {
+		postsService.deletePost(postId,
+			function success(data) {
+			},
+			function error(error) {
+				notificationService.showError("Problem to delete this post", error);
+				console.log(error);
+			}
+		);
+	};
+
 	$scope.likePost = function (postId) {
 		postsService.publishPostLikes(postId,
 			function success(data) {

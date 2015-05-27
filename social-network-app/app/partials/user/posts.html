@@ -15,7 +15,7 @@
         </div>
         <div class="panel-body">
             <p>{{post.postContent}}</p>
-            <div class="col-md-6 col-md-offset-8">
+            <div class="col-md-6 col-md-offset-7">
                 <button type="button" class="btn btn-xs btn-primary" ng-hide="{{post.liked}}" ng-click="likePost(post.id)">
                     <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                     <span class="glyphicon-class">({{post.likesCount}}) Like</span>
@@ -27,6 +27,10 @@
                 <button type="button" class="btn btn-xs btn-defaut" ng-click="post.showComments = !post.showComments">
                     <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
                     <span class="glyphicon-class">({{post.totalCommentsCount}}) Comments</span>
+                </button>
+                <button type="button" class="btn btn-xs btn-danger" ng-if="post.author.id == currentUserInfo.id" ng-click="deletePost(post.id)">
+                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                    <span class="glyphicon-class"> Delete</span>
                 </button>
             </div>
             <br></br>
@@ -71,6 +75,10 @@
                                 <button type="button" class="btn btn-xs btn-danger" ng-show="{{comment.liked}}" ng-click="deletePostLike(post.id)">
                                     <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                                     <span class="glyphicon-class">({{comment.likesCount}}) Unlike</span>
+                                </button>
+                                <button type="button" class="btn btn-xs btn-danger" ng-if="comment.author.id == currentUserInfo.id" ng-click="deletePost(post.id)">
+                                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                                    <span class="glyphicon-class"> Delete</span>
                                 </button>
                             </div>
                         </div>
