@@ -20,7 +20,7 @@
                     <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                     <span class="glyphicon-class">({{post.likesCount}}) Like</span>
                 </button>
-                <button type="button" class="btn btn-xs btn-danger" ng-show="{{post.liked}}">
+                <button type="button" class="btn btn-xs btn-danger" ng-show="{{post.liked}}" ng-click="deletePostLike(post.id)">
                     <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                     <span class="glyphicon-class">({{post.likesCount}}) Unlike</span>
                 </button>
@@ -68,7 +68,7 @@
                                     <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                                     <span class="glyphicon-class">({{comment.likesCount}}) Like</span>
                                 </button>
-                                <button type="button" class="btn btn-xs btn-danger" ng-show="{{comment.liked}}">
+                                <button type="button" class="btn btn-xs btn-danger" ng-show="{{comment.liked}}" ng-click="deletePostLike(post.id)">
                                     <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                                     <span class="glyphicon-class">({{comment.likesCount}}) Unlike</span>
                                 </button>
