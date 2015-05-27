@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="13b43aed-3f8a-4adc-8e6e-3a5f529adc11" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social-network-app/app/partials/user/posts.html" afterPath="$PROJECT_DIR$/social-network-app/app/partials/user/posts.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social-network-app/app/js/controllers/FriendsController.js" afterPath="$PROJECT_DIR$/social-network-app/app/js/controllers/FriendsController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social-network-app/app/js/controllers/UserProfileController.js" afterPath="$PROJECT_DIR$/social-network-app/app/js/controllers/UserProfileController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="AngularJS Social Network Project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,38 +38,38 @@
       <file leaf-file-name="HomeController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/social-network-app/app/js/controllers/HomeController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.21875">
-              <caret line="105" column="25" selection-start-line="105" selection-start-column="11" selection-end-line="105" selection-end-column="25" />
+            <state vertical-scroll-proportion="-8.90625">
+              <caret line="100" column="30" selection-start-line="94" selection-start-column="4" selection-end-line="114" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserProfileController.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="UserProfileController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/social-network-app/app/js/controllers/UserProfileController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.71875">
-              <caret line="72" column="40" selection-start-line="72" selection-start-column="40" selection-end-line="72" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.4215569">
+              <caret line="55" column="35" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="postsService.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/social-network-app/app/js/services/postsService.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="68" column="5" selection-start-line="68" selection-start-column="5" selection-end-line="68" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="posts.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="posts.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/social-network-app/app/partials/user/posts.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5263158">
-              <caret line="72" column="104" selection-start-line="72" selection-start-column="104" selection-end-line="72" selection-end-column="104" />
+            <state vertical-scroll-proportion="-8.5161295">
+              <caret line="12" column="62" selection-start-line="12" selection-start-column="62" selection-end-line="12" selection-end-column="62" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user-profile.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/social-network-app/app/partials/user-profile.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-16.32258">
+              <caret line="38" column="8" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -81,9 +83,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/social-network-app/app/js/controllers/UserProfileController.js" />
         <option value="$PROJECT_DIR$/social-network-app/app/js/controllers/HomeController.js" />
         <option value="$PROJECT_DIR$/social-network-app/app/partials/user/posts.html" />
+        <option value="$PROJECT_DIR$/social-network-app/app/js/controllers/FriendsController.js" />
+        <option value="$PROJECT_DIR$/social-network-app/app/js/controllers/UserProfileController.js" />
       </list>
     </option>
   </component>
@@ -403,22 +406,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/social-network-app/app/partials/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/social-network-app/app/partials/user-profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55263156">
-          <caret line="47" column="85" selection-start-line="47" selection-start-column="77" selection-end-line="47" selection-end-column="85" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/social-network-app/app/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.53287196">
@@ -435,26 +422,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/social-network-app/app/js/controllers/UserProfileController.js">
+    <entry file="file://$PROJECT_DIR$/social-network-app/app/partials/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.71875">
-          <caret line="72" column="40" selection-start-line="72" selection-start-column="40" selection-end-line="72" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/social-network-app/app/js/controllers/HomeController.js">
+    <entry file="file://$PROJECT_DIR$/social-network-app/app/partials/friends.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.21875">
-          <caret line="105" column="25" selection-start-line="105" selection-start-column="11" selection-end-line="105" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.36842105">
+          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/social-network-app/app/partials/user/posts.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5263158">
-          <caret line="72" column="104" selection-start-line="72" selection-start-column="104" selection-end-line="72" selection-end-column="104" />
+        <state vertical-scroll-proportion="-8.5161295">
+          <caret line="12" column="62" selection-start-line="12" selection-start-column="62" selection-end-line="12" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/social-network-app/app/partials/user-profile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.32258">
+          <caret line="38" column="8" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/social-network-app/app/js/controllers/FriendsController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.55824685">
+          <caret line="43" column="6" selection-start-line="43" selection-start-column="6" selection-end-line="43" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/social-network-app/app/js/controllers/HomeController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.90625">
+          <caret line="100" column="30" selection-start-line="94" selection-start-column="4" selection-end-line="114" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/social-network-app/app/js/controllers/UserProfileController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4215569">
+          <caret line="55" column="35" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="35" />
           <folding />
         </state>
       </provider>

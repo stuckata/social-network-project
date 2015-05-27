@@ -36,6 +36,27 @@ app.controller('UserProfileController', function ($modal, $scope, $location, aut
 
 	}
 
+	$scope.likePost = function (postId) {
+		postsService.publishPostLikes(postId,
+			function success(data) {
+			},
+			function error(error) {
+				notificationService.showError("Problem liking this...", error);
+				console.log(error);
+			}
+		);
+	};
+
+	$scope.deletePostLike = function (postId) {
+		postsService.deletePostLikes(postId,
+			function success(data) {
+			},
+			function error(error) {
+				notificationService.showError("Problem to delete this like", error);
+				console.log(error);
+			}
+		);
+	};
 
 	$scope.sendFriendRequest = function (username) {
 		profileService.sendRequest(username,

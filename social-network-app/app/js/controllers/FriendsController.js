@@ -43,9 +43,6 @@ app.controller('FriendsController', function ($modal, $scope, $location, authent
 			});
 	};
 
-
-
-
 	$scope.openUserProfile = function (selectedUser) {
 		userService.preview(selectedUser, function success(data) {
 			console.log(data);
