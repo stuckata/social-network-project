@@ -69,6 +69,17 @@ app.controller('UserProfileController', function ($modal, $scope, $location, aut
 		);
 	};
 
+	$scope.deletePost = function (postId) {
+		postsService.deletePost(postId,
+			function success(data) {
+			},
+			function error(error) {
+				notificationService.showError("Problem to delete this post", error);
+				console.log(error);
+			}
+		);
+	};
+
 	$scope.sendFriendRequest = function (username) {
 		profileService.sendRequest(username,
 			function success(data) {
