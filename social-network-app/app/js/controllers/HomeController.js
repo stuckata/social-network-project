@@ -125,6 +125,16 @@ app.controller('HomeController', function ($modal, $scope, $rootScope, $location
 		);
 	};
 
+	$scope.deleteComment = function (postId, commentId) {
+		postsService.deleteComment(postId, commentId,
+			function success(data) {
+			},
+			function error(error) {
+				notificationService.showError("Problem to delete this comment", error);
+				console.log(error);
+			}
+		);
+	};
 
 	$scope.animationsEnabled = false;
 	$scope.openDialog = function (size, templateUrl) {

@@ -58,6 +58,17 @@ app.controller('UserProfileController', function ($modal, $scope, $location, aut
 		);
 	};
 
+	$scope.deleteComment = function (postId, commentId) {
+		postsService.deleteComment(postId, commentId,
+			function success(data) {
+			},
+			function error(error) {
+				notificationService.showError("Problem to delete this comment", error);
+				console.log(error);
+			}
+		);
+	};
+
 	$scope.sendFriendRequest = function (username) {
 		profileService.sendRequest(username,
 			function success(data) {

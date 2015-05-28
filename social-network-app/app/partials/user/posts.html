@@ -76,7 +76,7 @@
                                     <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                                     <span class="glyphicon-class">({{comment.likesCount}}) Unlike</span>
                                 </button>
-                                <button type="button" class="btn btn-xs btn-danger" ng-if="comment.author.id == currentUserInfo.id" ng-click="deletePost(post.id)">
+                                <button type="button" class="btn btn-xs btn-danger" ng-if="comment.author.id == currentUserInfo.id" ng-click="deleteComment(post.id, comment.id)">
                                     <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                                     <span class="glyphicon-class"> Delete</span>
                                 </button>
