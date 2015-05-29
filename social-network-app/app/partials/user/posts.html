@@ -1,93 +1,94 @@
 <!-- posts -->
-<div ng-repeat="post in wall">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <a>
-                       <img class="img-thumbnail" ng-if="!post.author.profileImageData" src="/img/no_img.jpg" style="width: 50px; height: 50px;">
-                       <img class="img-thumbnail" ng-if="post.author.profileImageData" alt="100x100" ng-src="{{post.author.profileImageData}}"
-                data-holder-rendered="true" style="width: 50px; height: 50px;"></a>
+<div infinite-scroll="loadMore()" infinite-scroll-immediate-check="false">
+    <div ng-repeat="post in wall">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <a>
+                    <img class="img-thumbnail" ng-if="!post.author.profileImageData" src="/img/no_img.jpg" style="width: 50px; height: 50px;">
+                    <img class="img-thumbnail" ng-if="post.author.profileImageData" alt="100x100" ng-src="{{post.author.profileImageData}}"
+                         data-holder-rendered="true" style="width: 50px; height: 50px;"></a>
             <span>
                 <b>{{post.author.name}}</b>
             </span>
             <span class="col-md-offset-1">
                 <b>{{post.date | date:'dd-MM-yyyy HH:mm'}}</b>
             </span>
-        </div>
-        <div class="panel-body">
-            <p>{{post.postContent}}</p>
-            <div class="col-md-6 col-md-offset-7">
-                <button type="button" class="btn btn-xs btn-primary" ng-hide="{{post.liked}}" ng-click="likePost(post.id)">
-                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                    <span class="glyphicon-class">({{post.likesCount}}) Like</span>
-                </button>
-                <button type="button" class="btn btn-xs btn-danger" ng-show="{{post.liked}}" ng-click="deletePostLike(post.id)">
-                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-                    <span class="glyphicon-class">({{post.likesCount}}) Unlike</span>
-                </button>
-                <button type="button" class="btn btn-xs btn-defaut" ng-click="post.showComments = !post.showComments">
-                    <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-                    <span class="glyphicon-class">({{post.totalCommentsCount}}) Comments</span>
-                </button>
-                <button type="button" class="btn btn-xs btn-danger" ng-if="post.author.id == currentUserInfo.id" ng-click="deletePost(post.id)">
-                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                    <span class="glyphicon-class"> Delete</span>
-                </button>
             </div>
-            <br></br>
-            <div>
-                <!-- new comment --->
-                <div class="panel panel-success" ng-show="post.showComments && (post.author.id == currentUserInfo.id || post.wallOwner.id == currentUserInfo.id || post.author.isFriend || post.wallOwner.isFriend)">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Type message</h3>
-                    </div>
-                    <div class="panel-body">
-                        <textarea ng-model="commentContent" cols="87" rows="2"></textarea>
-                        <br />
-                        <div class="col-md-offset-10">
-                            <button type="button" class="btn btn-success" ng-click="postComment(post, commentContent)">Publish</button>
-                        </div>
-                        </button>
-                    </div>
+            <div class="panel-body">
+                <p>{{post.postContent}}</p>
+                <div class="col-md-6 col-md-offset-7">
+                    <button type="button" class="btn btn-xs btn-primary" ng-hide="{{post.liked}}" ng-click="likePost(post.id)">
+                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                        <span class="glyphicon-class">({{post.likesCount}}) Like</span>
+                    </button>
+                    <button type="button" class="btn btn-xs btn-danger" ng-show="{{post.liked}}" ng-click="deletePostLike(post.id)">
+                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                        <span class="glyphicon-class">({{post.likesCount}}) Unlike</span>
+                    </button>
+                    <button type="button" class="btn btn-xs btn-defaut" ng-click="post.showComments = !post.showComments">
+                        <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                        <span class="glyphicon-class">({{post.totalCommentsCount}}) Comments</span>
+                    </button>
+                    <button type="button" class="btn btn-xs btn-danger" ng-if="post.author.id == currentUserInfo.id" ng-click="deletePost(post.id)">
+                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                        <span class="glyphicon-class"> Delete</span>
+                    </button>
                 </div>
-                <!-- new comment --->
-                <!-- comments -->
-                <div ng-repeat="comment in post.comments" ng-show="post.showComments">
-                    <div class="panel panel-default">
+                </br>
+                <div>
+                    <!-- new comment --->
+                    <div class="panel panel-success" ng-show="post.showComments && (post.author.id == currentUserInfo.id || post.wallOwner.id == currentUserInfo.id || post.author.isFriend || post.wallOwner.isFriend)">
                         <div class="panel-heading">
-                            <a>
-                            <img class="img-thumbnail" ng-if="!comment.author.profileImageData" src="/img/no_img.jpg" style="width: 50px; height: 50px;">
-                            <img class="img-thumbnail" ng-if="comment.author.profileImageData" alt="100x100" ng-src="{{comment.author.profileImageData}}"
-                data-holder-rendered="true" style="width: 50px; height: 50px;"></a>
+                            <h3 class="panel-title">Type message</h3>
+                        </div>
+                        <div class="panel-body">
+                            <textarea ng-model="commentContent" cols="87" rows="2"></textarea>
+                            <br />
+                            <div class="col-md-offset-10">
+                                <button type="button" class="btn btn-success" ng-click="postComment(post, commentContent)">Publish</button>
+                            </div>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- new comment --->
+                    <!-- comments -->
+                    <div ng-repeat="comment in post.comments" ng-show="post.showComments">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a>
+                                    <img class="img-thumbnail" ng-if="!comment.author.profileImageData" src="/img/no_img.jpg" style="width: 50px; height: 50px;">
+                                    <img class="img-thumbnail" ng-if="comment.author.profileImageData" alt="100x100" ng-src="{{comment.author.profileImageData}}"
+                                         data-holder-rendered="true" style="width: 50px; height: 50px;"></a>
                             <span>
                                 <b>{{comment.author.name}}</b>
                             </span>
                             <span class="col-md-offset-1">
                                 <b>{{comment.date | date:'dd-MM-yyyy HH:mm'}}</b>
                             </span>
-                        </div>
-                        <div class="panel-body">
-                            <p>{{comment.commentContent}}</p>
-                            <div class="col-md-6 col-md-offset-9">
-                                <button type="button" class="btn btn-xs btn-default" ng-hide="{{comment.liked}}" ng-click="likePost(post.id)">
-                                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                                    <span class="glyphicon-class">({{comment.likesCount}}) Like</span>
-                                </button>
-                                <button type="button" class="btn btn-xs btn-danger" ng-show="{{comment.liked}}" ng-click="deletePostLike(post.id)">
-                                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-                                    <span class="glyphicon-class">({{comment.likesCount}}) Unlike</span>
-                                </button>
-                                <button type="button" class="btn btn-xs btn-danger" ng-if="comment.author.id == currentUserInfo.id" ng-click="deleteComment(post.id, comment.id)">
-                                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                                    <span class="glyphicon-class"> Delete</span>
-                                </button>
+                            </div>
+                            <div class="panel-body">
+                                <p>{{comment.commentContent}}</p>
+                                <div class="col-md-6 col-md-offset-9">
+                                    <button type="button" class="btn btn-xs btn-default" ng-hide="{{comment.liked}}" ng-click="likePost(post.id)">
+                                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                                        <span class="glyphicon-class">({{comment.likesCount}}) Like</span>
+                                    </button>
+                                    <button type="button" class="btn btn-xs btn-danger" ng-show="{{comment.liked}}" ng-click="deletePostLike(post.id)">
+                                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                                        <span class="glyphicon-class">({{comment.likesCount}}) Unlike</span>
+                                    </button>
+                                    <button type="button" class="btn btn-xs btn-danger" ng-if="comment.author.id == currentUserInfo.id" ng-click="deleteComment(post.id, comment.id)">
+                                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                                        <span class="glyphicon-class"> Delete</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <!-- comments -->
                 </div>
-                <!-- comments -->
             </div>
         </div>
     </div>
-</div>
-<!-- posts -->
+    <!-- posts -->
 </div>
