@@ -11,7 +11,7 @@ app.controller('UserProfileController', function ($modal, $scope, $location, aut
 	$scope.selectedUser = JSON.parse(sessionStorage['selectedUser']);
 	console.log($scope.selectedUser);
 
-	userService.fetchWall($scope.selectedUser, "", 5,
+	userService.fetchWall($scope.selectedUser, "", 10,
 		function success(data) {
 			console.log(data);
 			$scope.wall = data;
@@ -35,6 +35,26 @@ app.controller('UserProfileController', function ($modal, $scope, $location, aut
 			);
 
 	}
+
+	$scope.loadMore = function() {
+		var postId = $scope.wall[$scope.wall.length - 1].id;
+		userService.fetchMyWall(postId, 10,
+			function success(data) {
+				console.log(data);
+				if(data != []) {
+					for(var i = 0; i < data.length; i++) {
+						$scope.wall.push(data[i]);
+
+					}
+				}
+			},
+			function error(error) {
+				notificationService.showError("Problem while fetching current user wall posts", error);
+				console.log(error);
+			}
+		);
+
+	};
 
 	$scope.likePost = function (postId) {
 		postsService.publishPostLikes(postId,
