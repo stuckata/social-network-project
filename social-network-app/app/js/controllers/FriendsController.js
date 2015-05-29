@@ -29,6 +29,17 @@ app.controller('FriendsController', function ($modal, $scope, $location, authent
 		}
 		);
 
+	$scope.limitFriends = 5;
+
+	$scope.toggleFriends = function () {
+
+		if($scope.limitFriends == 5){
+			$scope.limitFriends = $scope.friends.length;
+		} else {
+			$scope.limitFriends = 5;
+		}
+	};
+
 	var post = {};
 	$scope.postMessage = function (username, message) {
 
