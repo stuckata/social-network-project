@@ -2,6 +2,7 @@
 
 app.controller('FriendsController', function ($modal, $scope, $location, authenticationService, userService, profileService, commentsService, notificationService, postsService) {
 
+	$scope.limitFriends = 5;
 
 	if (!authenticationService.isLoggedIn()) {
 		$location.path("/");
